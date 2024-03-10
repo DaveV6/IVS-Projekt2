@@ -1,0 +1,67 @@
+Autoři:
+	Jakub Havlík (xhavlij00)
+	Martin Vaculík (xvaculm00)
+	David Bujzaš (xbujzad00)
+	Erik Polák (xpolake00)
+
+
+Udělené úkoly:
+	Jakub Havlík
+		- Testy
+		- Dokumentace
+		- Sestavení plánu
+	
+	Martin Vaculík
+		- GUI
+		- Průběžné code review
+		- Profiling
+
+	David Bujzaš
+		- Správa repozitáře
+		- Makefile
+		- Nápověda
+
+	Erik Polák
+		- Knihovna 
+		- Instalačka
+		- Návrh GUI
+
+
+Stanovené termíny:
+	- 11.3. - Zkompletování plánu
+	- 20.3. - Testy pro matematickou knihovnu
+	- 31.3. - Implementace matematické knihovny
+	- 7.4. - GUI
+	- 13.4. - Makefile
+	- 15.4. - Instalačka
+	- 17.4. - Mockup (všichni)
+	- 18.4. - Profiling
+	- 21.4. - Dokumentace
+	- 24.4. - odevzdání kompletního produktu
+	- 8.5. - odevzdání seznamu problémů
+
+
+Vytvářený produkt:
+	- Platforma - Unix (Ubuntu)
+	- Programovací jazyk - Python
+	- GUI - PyQt
+
+
+Komunikace:
+	- Pro komunikaci ohledně práce na projektu byla zvolena služba Discord, kde jsme vytvořili samostatný server určený pouze pro tento projekt
+	- V rámci serveru je struktura rozdělena do kanálů pro zvýšení přehlednosti
+	- V případě technických problémů s discordem přechod na platformu Slack, v případě nouze messenger
+	- V případě úplného selhání techniky + komunikace v urgentních případech - telefonicky + osobní setkání
+
+
+Pravidla komunikace:
+	- Discord server používat POUZE pro komunikaci ohledně projektu
+	- Využívat kanály pouze na stanovené věci
+	- V případě selhání techniky kontaktovat a obeznámit všechny členy týmu
+
+
+Systém pro správu verzí:
+	- GitHub soukromý repozitář
+	- na GitHub byl také vytvořen Project pro přehlednost a správu průběhu vývoje
+	- https://github.com/DaveV6/IVS-Projekt2
+	- Oprávnění pro hodnocení, kontrolu repozitáře byla udělena na email ivs.kontrola@gmail.com
