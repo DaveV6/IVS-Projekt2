@@ -8,11 +8,11 @@
 *   Date:           14.03.2024
 *   Author:         Jakub Havlík (xhavlij00)
 **************************************************************************************************'''
-'''
+"""
 @file tests.py
 @author Jakub Havlík (xhavlij00)
 @brief Tests for mathematical library
-'''
+"""
 
 import random
 import sys
@@ -24,33 +24,90 @@ import mathlib # file with our mathematical library
 #           Basic functions
 #****************************************
 
-
-def test_addition():
+"""
+@brief Tests the functionality of add (addition) function from mathlib.py on basic numbers - non decimal (int)
+"""
+def test_addition_basic():
         assert mathlib.add(1, 1) == 2
         assert mathlib.add(0, 0) == 0
         assert mathlib.add(-100, 100) == 0
         assert mathlib.add(20, 30) == 50
         assert mathlib.add(-1236940, 4324921) == 3087981
-        assert mathlib.add(-4312.5, 390.12305) == -3922.37695
+        assert mathlib.add(1023, 120) == 1143
+        assert mathlib.add(0, 42) == 42
+        assert mathlib.add(-42, 0) == -42
+        assert mathlib.add(198439223948023, 92834329492) == 198532058277515
+        assert mathlib.add(-403430, -43298423) == -43701853
+        assert mathlib.add(12, 13) == 25
+
+#****************************************
+
+"""
+@brief Tests the add functions on decimal numbers - floats are only approximations of real numbers, so we use pytest.approx
+"""
+def test_addition_decimals():
         assert mathlib.add(0.000000000000000000000001, 1) == 1.000000000000000000000001
+        assert mathlib.add(-4312.5, 390.12305) == pytest.approx(-3922.37695)
+        assert mathlib.add(1.25, 1.36) == pytest.approx(2.61)
+        assert mathlib.add(-0.1, 0.1) == 0
+        assert mathlib.add(0.0000056, 0.123) == pytest.approx(0.1230056)
+        assert mathlib.add(-0.9999, 0.555) == pytest.approx(-0.4449)
+        assert mathlib.add(0.15, 0.39001) == pytest.approx(0.54001)
+        assert mathlib.add(1023490248234.12093213, 234908.000000000123798) == pytest.approx(1023490483142.12173013)
+        assert mathlib.add(3.333330390533, 6.13123915) == pytest.approx(9.464569540533)
+        assert mathlib.add(2.000000000000000000000001, -2.0) == pytest.approx(0.000000000000000000000001)
+
+#****************************************
         
-        for i in range(100):
+"""
+@brief Tests the add function with randomly generated numbers (any)
+"""            
+def test_addition_random_numbers():
+        for i in range(1000):
                 num1 = random.randint(-sys.maxsize, sys.maxsize)
                 num2 = random.randint(-sys.maxsize, sys.maxsize)
                 assert mathlib.add(num1, num2) == num1 + num2
-        
 
-def test_substraction():
+#****************************************
+
+"""
+@brief Tests the functionality of sub (substraction) function from mathlib.py
+"""      
+def test_substraction_basic():
         assert mathlib.sub(0, 0) == 0
         assert mathlib.sub(1, 1) == 0
+        assert mathlib.sub(12, 39) == -27
+        assert mathlib.sub(123123, -1) == 123124
+        assert mathlib.sub(0, -42342) == 42342
+        assert mathlib.sub(1235, 235) == 1000
+        assert mathlib.sub(4, 590) == -586
+        assert mathlib.sub(1, 234872348723432) == -234872348723431
+        assert mathlib.sub(374, 166) == 208
+        assert mathlib.sub(68, 30) == 38
+ 
+#****************************************
+        
+def test_substraction_decimals():
         assert mathlib.sub(-2.129831249125, 1) == -3.129831249125
-        
-        
-        for i in range(100):
+        assert mathlib.sub(2, 0.00000001) == 1.99999999
+        assert mathlib.sub(0.256, 0.113) == pytest.approx(0.143)
+        assert mathlib.sub(-0.15, -0.15) == 0
+        assert mathlib.sub(0.1656469485, 0) == 0.1656469485
+        assert mathlib.sub(534598.49832, 49823.1293821) == pytest.approx(484775.3689379)
+        assert mathlib.sub(-123.55666, -123) == pytest.approx(-0.55666)
+        assert mathlib.sub(-12983.5934785, 1.43895) == pytest.approx(-12985.0324285)
+        assert mathlib.sub(0.123, 0.123) == 0
+        assert mathlib.sub(0.000000000000001, 0.000001) == pytest.approx(-0.000000999999) 
+
+#****************************************
+
+def test_substraction_random_numbers():
+        for i in range(1000):
                 num1 = random.randint(-sys.maxsize, sys.maxsize)
                 num2 = random.randint(-sys.maxsize, sys.maxsize)
                 assert mathlib.sub(num1, num2) == num1 - num2
-        
+
+#****************************************  
         
 #def test_division():
         
@@ -61,3 +118,5 @@ def test_substraction():
 #def test_power():
         
 #def test_factorial():
+
+
