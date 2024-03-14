@@ -109,7 +109,52 @@ def test_substraction_random_numbers():
 
 #****************************************  
         
-#def test_division():
+def test_division_basic():
+        assert mathlib.div(1, 1) == 1
+        assert mathlib.div(5, 3) == pytest.approx(1.666667)
+        assert mathlib.div(250, 50) == 5
+        assert mathlib.div(3, 6) == 0.5
+        assert mathlib.div(3, 23498) == pytest.approx(0.0001276704)
+        assert mathlib.div(12316278, 54) == pytest.approx(228079.222222) 
+        assert mathlib.div(2, 100000000) == 0.00000002
+        assert mathlib.div(23487, 12387) == pytest.approx(1.8961007508)
+        assert mathlib.div(3, 70) == pytest.approx(0.0428571428571) 
+        assert mathlib.div(34598, 3) == pytest.approx(11532.666667) 
+
+#****************************************
+
+def test_division_fail():
+        assert pytest.raises(ZeroDivisionError, mathlib.div, 1, 0)
+        assert pytest.raises(ZeroDivisionError, mathlib.div, 1231283, 0)
+        assert pytest.raises(ZeroDivisionError, mathlib.div, -1238, 0)
+
+#****************************************
+
+def test_division_decimals():
+        assert mathlib.div(5, 0.00000001) == 500000000
+        assert mathlib.div(3.534, 1.345) == pytest.approx(2.62750929)
+        assert mathlib.div(131298371239, 0.34543) == pytest.approx(380101239727.3)
+        assert mathlib.div(13.555, 1.078) == pytest.approx(12.5742115)
+        assert mathlib.div(500000, 1) == 500000 
+        assert mathlib.div(0.53498, 112.2) == pytest.approx(0.0047680927)
+        assert mathlib.div(123, 55.323322) == pytest.approx(2.2232938217)
+        assert mathlib.div(0.4000000000000000000, 5) == 0.08
+        assert mathlib.div(98234.12389, 4239.1) == pytest.approx(23.173344316)
+        assert mathlib.div(2184, 52) == 42 
+
+#****************************************
+
+def test_division_random_numbers():
+        for i in range(1000):
+                num1 = random.randint(-sys.maxsize, sys.maxsize)
+                num2 = random.randint(-sys.maxsize, sys.maxsize)
+                if num2 == 0:
+                        assert pytest.raises(ZeroDivisionError, mathlib.div, num1, num2)
+                else:
+                        assert mathlib.div(num1, num2) == num1 / num2
+
+#****************************************
+
         
 #def test_multiplication():
         
