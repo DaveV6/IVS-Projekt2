@@ -169,12 +169,25 @@ def test_multiplication_basic():
         
 #****************************************
 
-#def test_multiplication_decimals():
-
+def test_multiplication_decimals():
+        assert mathlib.mul(0.4328743278, 0) == 0
+        assert mathlib.mul(1, 283974324789.23948) == 283974324789.23948
+        assert mathlib.mul(0.23874, 0.324587) == pytest.approx(0.0774919004)
+        assert mathlib.mul(2945823448.438, 24.5096489) == pytest.approx(72201098442.603)
+        assert mathlib.mul(0.0000000000345789, 98.23) == pytest.approx(0.0000000033966853)
+        assert mathlib.mul(100000, 0.00001) == 1
+        assert mathlib.mul(0.00007, 600000) == pytest.approx(42)
+        assert mathlib.mul(43853459.1234, 0467.123) == pytest.approx(20484959386.09998)
+        assert mathlib.mul(699999.999999, 0.11111) == pytest.approx(77776.999999889)
+        assert mathlib.mul(6289.0909090909, 0.55) == pytest.approx(3459)
         
 #****************************************
 
-#def test_multiplication_random_numbers():
+def test_multiplication_random_numbers():
+        for i in range(1000):
+                num1 = random.randint(-sys.maxsize, sys.maxsize)
+                num2 = random.randint(-sys.maxsize, sys.maxsize)
+                assert mathlib.mul(num1, num2) == num1 * num2
 
 #****************************************
         
