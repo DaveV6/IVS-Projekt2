@@ -155,8 +155,28 @@ def test_division_random_numbers():
 
 #****************************************
 
+def test_multiplication_basic():
+        assert mathlib.mul(2348423, 0) == 0
+        assert mathlib.mul(-1, 1) == -1
+        assert mathlib.mul(-42378, -213) == 9026514
+        assert mathlib.mul(0, -12389) == 0
+        assert mathlib.mul(21, 4) == 84
+        assert mathlib.mul(-123872136781295, 6) == -743232820687770
+        assert mathlib.mul(385, -12) == -4620
+        assert mathlib.mul(-900, -1) == 900
+        assert mathlib.mul(948789453, 235) == 222965521455
+        assert mathlib.mul(36, 909) == 32724
         
-#def test_multiplication():
+#****************************************
+
+#def test_multiplication_decimals():
+
+        
+#****************************************
+
+#def test_multiplication_random_numbers():
+
+#****************************************
         
 #def test_root():
         
@@ -164,4 +184,4 @@ def test_division_random_numbers():
         
 #def test_factorial():
 
-
+#def test_expressions/parsing():
