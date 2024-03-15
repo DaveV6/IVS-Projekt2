@@ -191,10 +191,69 @@ def test_multiplication_random_numbers():
 
 #****************************************
         
-#def test_root():
+def test_root_basic():
+        assert mathlib.root(4, 2) == 2
+        assert mathlib.root(2384732, 1) == 2384732
+        assert mathlib.root(0, 1) == 0
+        assert mathlib.root(-543, 1) == -543
+        assert mathlib.root(243687, 6) == pytest.approx(7.90324)
+        #assert mathlib.root(-423123, 7) == pytest.approx(-6.36474)
+        #assert mathlib.root() ==
+        #assert mathlib.root() ==
+        #assert mathlib.root() ==
+        #assert mathlib.root() ==
+
+
+
+#def test_root_decimals():
+        #assert mathlib.root() ==
+        #assert mathlib.root() ==
+        #assert mathlib.root() ==
+        #assert mathlib.root() ==
+        #assert mathlib.root() ==
+        #assert mathlib.root() ==
+        #assert mathlib.root() ==
+        #assert mathlib.root() ==
+        #assert mathlib.root() ==
+        #assert mathlib.root() ==
+
+def test_root_random_numbers():
+        for i in range(1000):
+                num1 = random.randint(-sys.maxsize, sys.maxsize)
+                num2 = random.randint(-sys.maxsize, sys.maxsize)
+                if(num2 % 2 == 0 and num1 < 0):
+                        assert pytest.raises(ValueError, mathlib.root, num1, num2)
+                elif(num2 == 0):
+                        assert pytest.raises(ValueError, mathlib.root, num1, num2)
+                else:
+                        assert mathlib.root(num1, num2) == pytest.approx(num1 ** (1/num2))
+                
+def test_root_fail():
+        assert pytest.raises(ValueError, mathlib.root, 3128, 0)
+        assert pytest.raises(ValueError, mathlib.root, 12, 0)
+        assert pytest.raises(ValueError, mathlib.root, -4872, 2)
+        assert pytest.raises(ValueError, mathlib.root, -123, 8) 
+
+ 
+#def test_power_basic():
         
-#def test_power():
-        
+#def test_power_decimals():
+
+def test_power_fail():
+        assert pytest.raises(ValueError, mathlib.pow, 0, 0)
+        assert pytest.raises(ValueError, mathlib.pow, 0, -112)
+        assert pytest.raises(ValueError, mathlib.pow, -0, -12398)
+        assert pytest.raises(ValueError, mathlib.pow, 0, -0.0000001)
+
+def test_power_random_numbers():
+        for i in range(1000):
+                num1 = random.randint(-100, 100) # had to lower these numbers, because power function is slow and the numbers would be too big to handle
+                num2 = random.randint(-100, 100)
+                if(num1 == 0 and num2 <= 0):
+                        assert pytest.raises(ValueError, mathlib.pow, num1, num2)
+                else:
+                        assert mathlib.pow(num1, num2) == pytest.approx(num1 ** num2)
+
 #def test_factorial():
 
 #def test_expressions/parsing():
