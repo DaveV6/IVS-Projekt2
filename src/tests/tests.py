@@ -4,7 +4,9 @@
 *   File:           tests.py
 *   Description:    This file contains the tests for our mathematical library - basic functions
 *                   and parsing of mathematical expressions
-*   Last change:    14.03.2024
+*                   For these tests we used Pytest library
+*
+*   Last change:    15.03.2024
 *   Date:           14.03.2024
 *   Author:         Jakub Havlík (xhavlij00)
 **************************************************************************************************'''
@@ -235,15 +237,38 @@ def test_root_fail():
         assert pytest.raises(ValueError, mathlib.root, -123, 8) 
 
  
-#def test_power_basic():
+def test_power_basic():
+        assert mathlib.pow(123876, 0) == 1
+        assert mathlib.pow(-24387, 0) == 1
+        assert mathlib.pow(2, 4) == 16
+        assert mathlib.pow(3, -7) == pytest.approx(0.000457247)
+        assert mathlib.pow(-123, 4) == 228886641
+        assert mathlib.pow(-5, -7) == pytest.approx(-0.0000128)
+        assert mathlib.pow(3249573, 2) == 10559724682329
+        assert mathlib.pow(2, 120) == 1329227995784915872903807060280344576
+        assert mathlib.pow(1, -3498523) == 1
+        assert mathlib.pow(1, 439272389423759) == 1
+        assert mathlib.pow(7, 3) == 343
+        assert mathlib.pow(7, -2) == pytest.approx(0.02040816326)
         
-#def test_power_decimals():
+def test_power_decimals():
+        assert mathlib.pow(0.1, 6) == pytest.approx(0.000001)
+        assert mathlib.pow(5, 0.4) == pytest.approx(1.9036539)
+        assert mathlib.pow(2137498, 0.006) == pytest.approx(1.0913886533)
+        assert mathlib.pow(15.23, 9.3) == pytest.approx(99795073192.413)
+        assert mathlib.pow(1.3459435, 3.7) == pytest.approx(3.0019210695)
+        assert mathlib.pow(6, 3.53945843) == pytest.approx(567.85048753)
+        #assert mathlib.pow(-234.43, 2.6) ==
+        #assert mathlib.pow() ==
+        #assert mathlib.pow() ==
+        #assert mathlib.pow() ==
 
 def test_power_fail():
         assert pytest.raises(ValueError, mathlib.pow, 0, 0)
         assert pytest.raises(ValueError, mathlib.pow, 0, -112)
         assert pytest.raises(ValueError, mathlib.pow, -0, -12398)
         assert pytest.raises(ValueError, mathlib.pow, 0, -0.0000001)
+        assert pytest.raises(ValueError, mathlib.pow, -2, 2.5) # Complex numbers
 
 def test_power_random_numbers():
         for i in range(1000):
