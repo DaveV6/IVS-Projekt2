@@ -19,6 +19,7 @@
 import random
 import sys
 import pytest
+import math
 sys.path.append('../')
 import mathlib # file with our mathematical library
 
@@ -258,10 +259,10 @@ def test_power_decimals():
         assert mathlib.pow(15.23, 9.3) == pytest.approx(99795073192.413)
         assert mathlib.pow(1.3459435, 3.7) == pytest.approx(3.0019210695)
         assert mathlib.pow(6, 3.53945843) == pytest.approx(567.85048753)
-        #assert mathlib.pow(-234.43, 2.6) ==
-        #assert mathlib.pow() ==
-        #assert mathlib.pow() ==
-        #assert mathlib.pow() ==
+        assert mathlib.pow(3.69234, -6.1) == pytest.approx(0.0003463058)
+        assert mathlib.pow(999.999, 0.2) == pytest.approx(3.9810709093)
+        assert mathlib.pow(0.1, 0.1) == pytest.approx(0.7943282347)
+        assert mathlib.pow(0.0000000000001, 0.000) == 1
 
 def test_power_fail():
         assert pytest.raises(ValueError, mathlib.pow, 0, 0)
@@ -269,6 +270,7 @@ def test_power_fail():
         assert pytest.raises(ValueError, mathlib.pow, -0, -12398)
         assert pytest.raises(ValueError, mathlib.pow, 0, -0.0000001)
         assert pytest.raises(ValueError, mathlib.pow, -2, 2.5) # Complex numbers
+        assert pytest.raises(ValueError, mathlib.pow, -3.69234, -6.1)
 
 def test_power_random_numbers():
         for i in range(1000):
@@ -279,6 +281,35 @@ def test_power_random_numbers():
                 else:
                         assert mathlib.pow(num1, num2) == pytest.approx(num1 ** num2)
 
-#def test_factorial():
+def test_factorial_basic():
+        assert mathlib.fact(0) == 1
+        assert mathlib.fact(4) == 24
+        assert mathlib.fact(20) == 2432902008176640000
+        assert mathlib.fact(1) == 1
+        assert mathlib.fact(7) == 5040
+        assert mathlib.fact(100) == 93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000000
+
+def test_factorial_decimals(): #very similar to factorial_fail but made this separately for clarity
+        assert pytest.raises(ValueError, mathlib.fact, 0.5)
+        assert pytest.raises(ValueError, mathlib.fact, 0.001)
+        assert pytest.raises(ValueError, mathlib.fact, 6.1289321)
+        assert pytest.raises(ValueError, mathlib.fact, -6.1289321)
+        assert pytest.raises(ValueError, mathlib.fact, 63485743549388.1)
+        assert mathlib.fact(6.0) == 720
+        assert mathlib.fact(0.00000000) == 1
+
+def test_factorial_fail():
+        assert pytest.raises(ValueError, mathlib.fact, -1)
+        assert pytest.raises(ValueError, mathlib.fact, -0.000001)
+        assert pytest.raises(ValueError, mathlib.fact, -1149824)
+
+
+def test_factorial_random_numbers():        
+        for i in range(1000):
+                num = random.randint(-100, 100)
+                if(num < 0):
+                        assert pytest.raises(ValueError, mathlib.fact, num)
+                else:
+                        assert mathlib.fact(num) == pytest.approx(math.factorial(num))
 
 #def test_expressions/parsing():
