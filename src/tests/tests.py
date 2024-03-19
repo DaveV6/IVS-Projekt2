@@ -74,7 +74,7 @@ def test_addition_random_numbers():
 #****************************************
 
 """
-@brief Tests the functionality of sub (substraction) function from mathlib.py
+@brief Tests the functionality of sub (substraction) function from mathlib.py on basic numbers
 """      
 def test_substraction_basic():
         assert mathlib.sub(0, 0) == 0
@@ -89,7 +89,10 @@ def test_substraction_basic():
         assert mathlib.sub(68, 30) == 38
  
 #****************************************
-        
+
+"""
+@brief Tests the functionality of sub (substraction) function from mathlib.py on decimal numbers
+"""        
 def test_substraction_decimals():
         assert mathlib.sub(-2.129831249125, 1) == -3.129831249125
         assert mathlib.sub(2, 0.00000001) == 1.99999999
@@ -104,6 +107,9 @@ def test_substraction_decimals():
 
 #****************************************
 
+"""
+@brief Tests the functionality of sub (substraction) function from mathlib.py on random generated numbers
+"""      
 def test_substraction_random_numbers():
         for i in range(1000):
                 num1 = random.randint(-sys.maxsize, sys.maxsize)
@@ -111,7 +117,10 @@ def test_substraction_random_numbers():
                 assert mathlib.sub(num1, num2) == num1 - num2
 
 #****************************************  
-        
+
+"""
+@brief Tests the functionality of div (division) function from mathlib.py on basic numbers
+"""      
 def test_division_basic():
         assert mathlib.div(1, 1) == 1
         assert mathlib.div(5, 3) == pytest.approx(1.666667)
@@ -126,6 +135,10 @@ def test_division_basic():
 
 #****************************************
 
+"""
+@brief Tests the functionality of div (division) function from mathlib.py on edge cases that should raise an exception (error)
+division by zero - error
+"""      
 def test_division_fail():
         assert pytest.raises(ZeroDivisionError, mathlib.div, 1, 0)
         assert pytest.raises(ZeroDivisionError, mathlib.div, 1231283, 0)
@@ -133,6 +146,9 @@ def test_division_fail():
 
 #****************************************
 
+"""
+@brief Tests the functionality of div (division) function from mathlib.py on decimal numbers
+"""      
 def test_division_decimals():
         assert mathlib.div(5, 0.00000001) == 500000000
         assert mathlib.div(3.534, 1.345) == pytest.approx(2.62750929)
@@ -147,6 +163,9 @@ def test_division_decimals():
 
 #****************************************
 
+"""
+@brief Tests the functionality of div (division) function from mathlib.py on random generated numbers
+"""      
 def test_division_random_numbers():
         for i in range(1000):
                 num1 = random.randint(-sys.maxsize, sys.maxsize)
@@ -158,6 +177,9 @@ def test_division_random_numbers():
 
 #****************************************
 
+"""
+@brief Tests the functionality of mul (multiplication) function from mathlib.py on basic numbers
+"""      
 def test_multiplication_basic():
         assert mathlib.mul(2348423, 0) == 0
         assert mathlib.mul(-1, 1) == -1
@@ -172,6 +194,9 @@ def test_multiplication_basic():
         
 #****************************************
 
+"""
+@brief Tests the functionality of mul (multiplication) function from mathlib.py on decimal numbers
+"""     
 def test_multiplication_decimals():
         assert mathlib.mul(0.4328743278, 0) == 0
         assert mathlib.mul(1, 283974324789.23948) == 283974324789.23948
@@ -186,6 +211,9 @@ def test_multiplication_decimals():
         
 #****************************************
 
+"""
+@brief Tests the functionality of mul (multiplication) function from mathlib.py on random generated numbers
+"""     
 def test_multiplication_random_numbers():
         for i in range(1000):
                 num1 = random.randint(-sys.maxsize, sys.maxsize)
@@ -193,33 +221,44 @@ def test_multiplication_random_numbers():
                 assert mathlib.mul(num1, num2) == num1 * num2
 
 #****************************************
-        
+
+"""
+@brief Tests the functionality of root function from mathlib.py on basic numbers
+"""         
 def test_root_basic():
         assert mathlib.root(4, 2) == 2
         assert mathlib.root(2384732, 1) == 2384732
         assert mathlib.root(0, 1) == 0
         assert mathlib.root(-543, 1) == -543
         assert mathlib.root(243687, 6) == pytest.approx(7.90324)
-        #assert mathlib.root(-423123, 7) == pytest.approx(-6.36474)
-        #assert mathlib.root() ==
-        #assert mathlib.root() ==
-        #assert mathlib.root() ==
-        #assert mathlib.root() ==
+        assert mathlib.root(423123, 7) == pytest.approx(6.36474)
+        assert mathlib.root(-27, 3) == -3
+        assert mathlib.root(-81, 3) == pytest.approx(-4.32675)
+        assert mathlib.root(5, -6) == pytest.approx(0.76472449)
+        assert mathlib.root(-213, 9) == pytest.approx(-1.814298931622)
 
+#****************************************
 
+"""
+@brief Tests the functionality of root function from mathlib.py on decimal numbers
+we even count negatives, even though that makes it not a simple root
+"""  
+def test_root_decimals():
+        assert mathlib.root(8.3, 0.5) == pytest.approx(68.89)
+        assert mathlib.root(43289.231763, -2.3) == pytest.approx(0.0096423449)
+        assert mathlib.root(1.345, 3) == pytest.approx(1.1038433)
+        assert mathlib.root(90.345879, 6) == pytest.approx(2.1182866)
+        assert mathlib.root(548.7453453, -3.2) == pytest.approx(0.139298554)
+        assert mathlib.root(9.7777, 1.2) == pytest.approx(6.686475486)
+        assert mathlib.root(1.0, 1.00000001) == pytest.approx(1)
+        assert mathlib.root(567489.1, 7.2) == pytest.approx(6.2973925677)
+        assert mathlib.root(-84.54656765, 3) == pytest.approx(-4.38899743521)
 
-#def test_root_decimals():
-        #assert mathlib.root() ==
-        #assert mathlib.root() ==
-        #assert mathlib.root() ==
-        #assert mathlib.root() ==
-        #assert mathlib.root() ==
-        #assert mathlib.root() ==
-        #assert mathlib.root() ==
-        #assert mathlib.root() ==
-        #assert mathlib.root() ==
-        #assert mathlib.root() ==
+#****************************************
 
+"""
+@brief Tests the functionality of root function from mathlib.py on random numbers
+"""  
 def test_root_random_numbers():
         for i in range(1000):
                 num1 = random.randint(-sys.maxsize, sys.maxsize)
@@ -228,16 +267,33 @@ def test_root_random_numbers():
                         assert pytest.raises(ValueError, mathlib.root, num1, num2)
                 elif(num2 == 0):
                         assert pytest.raises(ValueError, mathlib.root, num1, num2)
+                elif(num1 < 0):
+                        assert mathlib.root(num1, num2) == -(-num1) ** (1/num2)
                 else:
                         assert mathlib.root(num1, num2) == pytest.approx(num1 ** (1/num2))
-                
+
+#****************************************
+
+"""
+@brief Tests the functionality of root function from mathlib.py on edge cases that should raise an exception (error)
+0th root - error, undefined
+even root of negative number - undefined
+negative number with decimal root - undefined
+"""  
 def test_root_fail():
         assert pytest.raises(ValueError, mathlib.root, 3128, 0)
         assert pytest.raises(ValueError, mathlib.root, 12, 0)
         assert pytest.raises(ValueError, mathlib.root, -4872, 2)
         assert pytest.raises(ValueError, mathlib.root, -123, 8) 
+        assert pytest.raises(ValueError, mathlib.root, -42.1111, 5.5)
+        assert pytest.raises(ZeroDivisionError, mathlib.root, 0, -0.0000001)
+        assert pytest.raises(ZeroDivisionError, mathlib.root, 0, -1238)
 
- 
+#****************************************
+
+"""
+@brief Tests the functionality of pow (power) function from mathlib.py on basic numbers
+"""  
 def test_power_basic():
         assert mathlib.pow(123876, 0) == 1
         assert mathlib.pow(-24387, 0) == 1
@@ -251,7 +307,12 @@ def test_power_basic():
         assert mathlib.pow(1, 439272389423759) == 1
         assert mathlib.pow(7, 3) == 343
         assert mathlib.pow(7, -2) == pytest.approx(0.02040816326)
-        
+
+#****************************************
+
+"""
+@brief Tests the functionality of pow (power) function from mathlib.py on decimal numbers (even negative)
+""" 
 def test_power_decimals():
         assert mathlib.pow(0.1, 6) == pytest.approx(0.000001)
         assert mathlib.pow(5, 0.4) == pytest.approx(1.9036539)
@@ -264,14 +325,27 @@ def test_power_decimals():
         assert mathlib.pow(0.1, 0.1) == pytest.approx(0.7943282347)
         assert mathlib.pow(0.0000000000001, 0.000) == 1
 
+#****************************************
+
+"""
+@brief Tests the functionality of pow (power) function from mathlib.py on edge cases that should fail (raise an exception)
+0 to the power of 0 - undefined
+0 to the negative power - undefined
+negative number to power with decimals - undefined
+""" 
 def test_power_fail():
         assert pytest.raises(ValueError, mathlib.pow, 0, 0)
         assert pytest.raises(ValueError, mathlib.pow, 0, -112)
         assert pytest.raises(ValueError, mathlib.pow, -0, -12398)
         assert pytest.raises(ValueError, mathlib.pow, 0, -0.0000001)
-        assert pytest.raises(ValueError, mathlib.pow, -2, 2.5) # Complex numbers
+        assert pytest.raises(ValueError, mathlib.pow, -2, 2.5)
         assert pytest.raises(ValueError, mathlib.pow, -3.69234, -6.1)
 
+#****************************************
+
+"""
+@brief Tests the functionality of pow (power) function from mathlib.py on random generated numbers
+""" 
 def test_power_random_numbers():
         for i in range(1000):
                 num1 = random.randint(-100, 100) # had to lower these numbers, because power function is slow and the numbers would be too big to handle
@@ -281,6 +355,11 @@ def test_power_random_numbers():
                 else:
                         assert mathlib.pow(num1, num2) == pytest.approx(num1 ** num2)
 
+#****************************************
+
+"""
+@brief Tests the functionality of fact (factorial) function from mathlib.py on basic numbers
+""" 
 def test_factorial_basic():
         assert mathlib.fact(0) == 1
         assert mathlib.fact(4) == 24
@@ -289,6 +368,10 @@ def test_factorial_basic():
         assert mathlib.fact(7) == 5040
         assert mathlib.fact(100) == 93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000000
 
+"""
+@brief Tests the functionality of fact (factorial) function from mathlib.py on decimal numbers, which should fail (raise an exception)
+except for the case when its 6.0000 (which is just 6)
+""" 
 def test_factorial_decimals(): #very similar to factorial_fail but made this separately for clarity
         assert pytest.raises(ValueError, mathlib.fact, 0.5)
         assert pytest.raises(ValueError, mathlib.fact, 0.001)
@@ -298,12 +381,22 @@ def test_factorial_decimals(): #very similar to factorial_fail but made this sep
         assert mathlib.fact(6.0) == 720
         assert mathlib.fact(0.00000000) == 1
 
+#****************************************
+
+"""
+@brief Tests the functionality of fact (factorial) function from mathlib.py on cases that should fail (raise an exception)
+factorial of negative number - undefined
+""" 
 def test_factorial_fail():
         assert pytest.raises(ValueError, mathlib.fact, -1)
         assert pytest.raises(ValueError, mathlib.fact, -0.000001)
         assert pytest.raises(ValueError, mathlib.fact, -1149824)
 
+#****************************************
 
+"""
+@brief Tests the functionality of fact (factorial) function from mathlib.py on random generated numbers
+""" 
 def test_factorial_random_numbers():        
         for i in range(1000):
                 num = random.randint(-100, 100)
@@ -312,4 +405,98 @@ def test_factorial_random_numbers():
                 else:
                         assert mathlib.fact(num) == pytest.approx(math.factorial(num))
 
-#def test_expressions/parsing():
+#****************************************
+
+"""
+@brief Tests the functionality of modulo function from mathlib.py on basic numbers
+""" 
+def test_modulo_basic():
+        assert mathlib.modulo(4, 2) == 0
+        assert mathlib.modulo(2138, 100) == 38
+        assert mathlib.modulo(-123, 5) == 2
+        assert mathlib.modulo(123, -5) == -2
+        assert mathlib.modulo(-12938, -58) == -4
+        assert mathlib.modulo(555, 555) == 0
+        assert mathlib.modulo(-1278343945, 1) == 0
+        assert mathlib.modulo(1, 2) == 1
+        assert mathlib.modulo(-5435, 123) == 100
+        assert mathlib.modulo(-234, 2340) == 2106
+        assert mathlib.modulo(-2598347, 394587439328401230) == 394587439325802883
+
+#****************************************
+
+"""
+@brief Tests the functionality of modulo function from mathlib.py on decimal numbers
+""" 
+def test_modulo_decimals():
+        assert mathlib.modulo(0.000000000000000000000001, 1) == 0.000000000000000000000001
+        assert mathlib.modulo(213.455, 6.8) == pytest.approx(2.655)
+        assert mathlib.modulo(130.0, 10.000) == 0
+        assert mathlib.modulo(1, 1.11111111111) == 1
+        assert mathlib.modulo(38.475, -6.7) == pytest.approx(-1.725)
+        assert mathlib.modulo(8.23904, 3) == pytest.approx(2.23904)
+        assert mathlib.modulo(5, 2.5) == 0
+        assert mathlib.modulo(10.00, 3.3333333333) == pytest.approx(0.0000000001)
+        assert mathlib.modulo(-3498.573489, -34.58) == pytest.approx(-5.993489)
+        assert mathlib.modulo(6.1, -34.123) == pytest.approx(-28.023)
+        assert mathlib.modulo(-587.5, 1.567) == pytest.approx(0.125)
+        assert mathlib.modulo(9.000005478, 3.554) == pytest.approx(1.892005478)
+
+#****************************************
+
+"""
+@brief Tests the functionality of modulo function from mathlib.py on cases that should fail (raise an exception)
+when second number is 0 it just means we are diving by zero - error
+""" 
+def test_modulo_fail():
+        assert pytest.raises(ZeroDivisionError, mathlib.modulo, 35631, 0)
+        assert pytest.raises(ZeroDivisionError, mathlib.modulo, -4324, 0)
+        assert pytest.raises(ZeroDivisionError, mathlib.modulo, 1, 0)
+        assert pytest.raises(ZeroDivisionError, mathlib.modulo, 0, 0)
+
+#****************************************
+
+"""
+@brief Tests the functionality of modulo function from mathlib.py on random generated
+""" 
+def test_modulo_random_numbers():
+        for i in range(1000):
+                num1 = random.randint(-sys.maxsize, sys.maxsize)
+                num2 = random.randint(-sys.maxsize, sys.maxsize)
+                assert mathlib.modulo(num1, num2) == num1%num2
+
+#****************************************
+
+#****************************************
+#               Parsing
+#****************************************
+
+def test_expressions_parsing():
+        assert mathlib.parse("0+0-6*5") == -30
+        assert mathlib.parse("2^(5+1) + 3*(4-3)") == 65
+        assert mathlib.parse("√(4+12) - 2^(√4)") == 0
+        assert mathlib.parse("!(1^(100^5) + (3-3)*(√50) + 1)") == 2
+        assert mathlib.parse("(42*5)/(2+3) - 42^0 + 1^(0.00)") == 42
+        #assert mathlib.parse() == 
+        #assert mathlib.parse() ==         
+        #assert mathlib.parse() ==
+        #assert mathlib.parse() == 
+        #assert mathlib.parse() == 
+        #assert mathlib.parse() == 
+        #assert mathlib.parse() == 
+        #assert mathlib.parse() == 
+        #assert mathlib.parse() == 
+        #assert mathlib.parse() ==
+        #assert mathlib.parse() == 
+        #assert mathlib.parse() == 
+        #assert mathlib.parse() == 
+        #assert mathlib.parse() == 
+        #assert mathlib.parse() == 
+        
+def test_expressions_parsing_fail_invalid_input(): #Includes parsing with parenthesis - might remove
+        assert pytest.raises(ValueError, mathlib.parse, "randombadinput + 1")
+        assert pytest.raises(ValueError, mathlib.parse, "⅒ + ⅛") #random unicode characters
+        assert pytest.raises(ValueError, mathlib.parse, "√4 (0+0)") #missing operator 
+        assert pytest.raises(ValueError, mathlib.parse, "1213 & 1234 @ (5 % 9)") #invalid operator
+        assert pytest.raises(ValueError, mathlib.parse, "( 1 + (3)") #unclosed parenthesis
+        assert pytest.raises(ValueError, mathlib.parse, "{1 + [2 - 3]}") #invalid parenthesis
