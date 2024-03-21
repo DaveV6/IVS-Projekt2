@@ -7,6 +7,7 @@ Ubuntu 64bit
 ## Jazyk
 
 Kalkulačka - Python
+
 GUI - PyQT 
 
 ## Autori
