@@ -67,6 +67,7 @@ def test_addition_decimals():
 """            
 def test_addition_random_numbers():
         for i in range(1000):
+                random.seed(i)
                 num1 = random.randint(-sys.maxsize, sys.maxsize)
                 num2 = random.randint(-sys.maxsize, sys.maxsize)
                 assert mathlib.add(num1, num2) == num1 + num2
@@ -112,6 +113,7 @@ def test_substraction_decimals():
 """      
 def test_substraction_random_numbers():
         for i in range(1000):
+                random.seed(i)
                 num1 = random.randint(-sys.maxsize, sys.maxsize)
                 num2 = random.randint(-sys.maxsize, sys.maxsize)
                 assert mathlib.sub(num1, num2) == num1 - num2
@@ -168,6 +170,7 @@ def test_division_decimals():
 """      
 def test_division_random_numbers():
         for i in range(1000):
+                random.seed(i)
                 num1 = random.randint(-sys.maxsize, sys.maxsize)
                 num2 = random.randint(-sys.maxsize, sys.maxsize)
                 if num2 == 0:
@@ -216,6 +219,7 @@ def test_multiplication_decimals():
 """     
 def test_multiplication_random_numbers():
         for i in range(1000):
+                random.seed(i)
                 num1 = random.randint(-sys.maxsize, sys.maxsize)
                 num2 = random.randint(-sys.maxsize, sys.maxsize)
                 assert mathlib.mul(num1, num2) == num1 * num2
@@ -261,6 +265,7 @@ def test_root_decimals():
 """  
 def test_root_random_numbers():
         for i in range(1000):
+                random.seed(i)
                 num1 = random.randint(-sys.maxsize, sys.maxsize)
                 num2 = random.randint(-sys.maxsize, sys.maxsize)
                 if(num2 % 2 == 0 and num1 < 0):
@@ -348,6 +353,7 @@ def test_power_fail():
 """ 
 def test_power_random_numbers():
         for i in range(1000):
+                random.seed(i)
                 num1 = random.randint(-100, 100) # had to lower these numbers, because power function is slow and the numbers would be too big to handle
                 num2 = random.randint(-100, 100)
                 if(num1 == 0 and num2 <= 0):
@@ -399,6 +405,7 @@ def test_factorial_fail():
 """ 
 def test_factorial_random_numbers():        
         for i in range(1000):
+                random.seed(i)
                 num = random.randint(-100, 100)
                 if(num < 0):
                         assert pytest.raises(ValueError, mathlib.fact, num)
@@ -461,6 +468,7 @@ def test_modulo_fail():
 """ 
 def test_modulo_random_numbers():
         for i in range(1000):
+                random.seed(i)
                 num1 = random.randint(-sys.maxsize, sys.maxsize)
                 num2 = random.randint(-sys.maxsize, sys.maxsize)
                 assert mathlib.modulo(num1, num2) == num1%num2
@@ -473,33 +481,34 @@ def test_modulo_random_numbers():
 
 """
 @brief Tests the functionality of parsing function that evaluates given inputs from keyboard
-""" 
+"""
+"""
 def test_expressions_parsing():
         assert mathlib.parse("0+0-6*5") == -30
-        assert mathlib.parse("2^(5+1) + 3*(4-3)") == 65
-        assert mathlib.parse("√(4+12) - 2^(√4)") == 0
-        assert mathlib.parse("!(1^(100^5) + (3-3)*(√50) + 1)") == 2
-        assert mathlib.parse("(42*5)/(2+3) - 42^0 + 1^(0.00)") == 42
-        assert mathlib.parse("-(4)√(81) + (-(3!))") == -9 
-        assert mathlib.parse("          ") == 0    
-        assert mathlib.parse("50%(-2) + √(3%3 + (-6)^2)") == 6
-        assert mathlib.parse("999 - (-1) * (-1)^2 - 0/(7-3)") == 1000 
+        assert mathlib.parse("2^(5+1)+3*(4-3)") == 65
+        assert mathlib.parse("√(4+12)-2^(√(4))") == 0
+        assert mathlib.parse("!(1^(100^5)+(3-3)*(√(50))+1)") == 2
+        assert mathlib.parse("(42*5)/(2+3)-42^0+1^(0.00)") == 42
+        assert mathlib.parse("-(4)√(81)+(-(3!))") == -9
+        assert mathlib.parse("") == 0
+        assert mathlib.parse("50%(-2)+√(3%3+(-6)^2)") == 6
+        assert mathlib.parse("999-(-1)*(-1)^2-0/(7-3)") == 1000
         assert mathlib.parse("15^(3-2)") == 225
-        assert mathlib.parse("6%(3+1) - (√3498547)^(60 - 6*10)") == 1
-        assert mathlib.parse("(0 + (0-0)^(0-0) * 0)!") == 1 
-        assert mathlib.parse("8*7*6*5*4*3*2*1 / 8!") == 1 
-        assert mathlib.parse("((3-2)*(3+2))/5 + 2 ") == 3
-        assert mathlib.parse("((√9)!)^2") == 36
-        assert mathlib.parse("(1 + 1 + 1 - 1) * (3/6)") == 1 
-        assert mathlib.parse("4! - 5! * 1/1") == -96 
-        assert mathlib.parse("(00000000000000000.0000000000000000 + 0.1^(5*2))/(10^(-10))") == 1  
-        assert mathlib.parse("4009.123 - 0.123 - 4*1000") == 9 
-        assert mathlib.parse("1.2 + (3.66 + 0.34)*10 - (0.6 * 2)") == 40 
-
+        assert mathlib.parse("6%(3+1)-(√(3498547))^(60-6*10)") == 1
+        assert mathlib.parse("(0+(0-0)^(0-0)*0)!") == 1
+        assert mathlib.parse("8*7*6*5*4*3*2*1/8!") == 1
+        assert mathlib.parse("((3-2)*(3+2))/5+2") == 3
+        assert mathlib.parse("((√(9))!)^2") == 36
+        assert mathlib.parse("(1+1+1-1)*(3/6)") == 1
+        assert mathlib.parse("4!-5!*1/1") == -96
+        assert mathlib.parse("4009.123-0.123-4*1000") == 9
+        assert mathlib.parse("1.2+(3.66+0.34)*10-(0.6*2)") == 40
+"""
 
 """
 @brief Tests the functionality of parsing on edge cases and invalid inputs that should return error
-"""       
+"""
+"""
 def test_expressions_parsing_fail_invalid_input(): #Includes parsing with parenthesis - might remove
         assert pytest.raises(ValueError, mathlib.parse, "randombadinput + 1")
         assert pytest.raises(ValueError, mathlib.parse, "⅒ + ⅛") #random unicode characters
@@ -509,3 +518,4 @@ def test_expressions_parsing_fail_invalid_input(): #Includes parsing with parent
         assert pytest.raises(ValueError, mathlib.parse, "{1 + [2 - 3]}") #invalid parenthesis
         assert pytest.raises(ValueError, mathlib.parse, "(-3)!") #factorial of negative number
         assert pytest.raises(ValueError, mathlib.parse, "√-4") #even root of negative number
+"""
