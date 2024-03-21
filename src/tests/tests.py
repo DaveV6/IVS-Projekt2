@@ -3,10 +3,9 @@
 *
 *   File:           tests.py
 *   Description:    This file contains the tests for our mathematical library - basic functions
-*                   and parsing of mathematical expressions
 *                   For these tests we used Pytest library
 *
-*   Last change:    15.03.2024
+*   Last change:    21.03.2024
 *   Date:           14.03.2024
 *   Author:         Jakub Havlík (xhavlij00)
 **************************************************************************************************'''
