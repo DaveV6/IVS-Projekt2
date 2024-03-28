@@ -14,11 +14,24 @@
 @brief Implementation of mathematical library
 """
 
-import math
-import re
+"""
+@brief Function for checking whether number is decimal or not
+    
+@param n: number
+@return: True if number is decimal, otherwise False
+"""
+def contains_decimals(n):
+    # Convert the number to a string
+    n_str = str(n)
+    for char in n_str:
+        # Check if the character is a decimal point
+        if char == '.':
+            # If found, return True
+            return True
+    return False
 
 """
-Function for sum of 2 numbers
+@brief Function for sum of 2 numbers
     
 @param a: The first number
 @param b: The second number
@@ -28,7 +41,7 @@ def add(a, b):
     return a + b
 
 """
-Function for substraction of 2 numbers
+@brief Function for substraction of 2 numbers
     
 @param a: The first number
 @param b: The second number
@@ -38,7 +51,7 @@ def sub(a, b):
     return a - b
 
 """
-Function for division of 2 numbers
+@brief Function for division of 2 numbers
     
 @param a: The dividend
 @param b: The divisor
@@ -50,7 +63,7 @@ def div(a, b):
     return a / b
 
 """
-Function for multiplication of 2 numbers
+@brief Function for multiplication of 2 numbers
     
 @param a: The first number
 @param b: The second number
@@ -60,7 +73,7 @@ def mul(a, b):
     return a * b
 
 """
-Function for computing the n-th root of a number
+@brief Function for computing the n-th root of a number
     
 @param a: The base
 @param n: The root 
@@ -84,15 +97,15 @@ def root(a, n):
     return a ** (1/n)
 
 """
-Function for raising a number to a power
+@brief Function for raising a number to a power
     
 @param a: The base.
 @param n: The exponent
 @return: The result of raising a to the power of n
 """
 def pow(a, n):
-    # raise an error fo negative base and complex exponent
-    if(a < 0 and re.match(r'^-?\d*\.\d+$', str(n))):
+    # raise an error fo negative base and exponent is decimal
+    if(a < 0 and contains_decimals(n) and n % 1 != 0):
         raise ValueError("Can't count complex numbers")
     
     # raise an error for base equal to 0 and exponent lower or equal to 0
@@ -102,7 +115,7 @@ def pow(a, n):
     return a ** n
 
 """
-Function for computing the factorial of a non-negative integer
+@brief Function for computing the factorial of a non-negative integer
     
 @param n: The base
 @return: The factorial of n
@@ -113,8 +126,9 @@ def fact(n):
     
     if (n == 0):
         return 1
-    # raise an error for base number with decimals
-    if(re.match(r'^-?\d*\.\d+$', str(n)) and n % 1 != 0):
+    
+    # raise an error for decimal base
+    if(contains_decimals(n) and n % 1 != 0):
         raise ValueError("Can't count factorial of number with decimals")
     
     result = 1
@@ -124,7 +138,7 @@ def fact(n):
 
 
 """
-Function for computing the remainder of a divided by b
+@brief Function for computing the remainder of a divided by b
     
 @param a: The dividend
 @param b: The divisor
