@@ -1,3 +1,19 @@
+'''**************************************************************************************************
+*   Project: IVS project 2 (Calculator)
+*
+*   File:           mathlib.py
+*   Description:    This file contains the implementation of our mathematical library - basic functions
+*
+*   Last change:    28.03.2024
+*   Date:           26.03.2024
+*   Author:         Erik Polak (xpolake00)
+**************************************************************************************************'''
+"""
+@file mathlib.py
+@author Erik Polák (xpolake00)
+@brief Implementation of mathematical library
+"""
+
 import math
 import re
 
