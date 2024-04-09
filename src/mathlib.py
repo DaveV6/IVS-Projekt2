@@ -146,3 +146,13 @@ def fact(n):
 """
 def modulo(a, b):
     return a % b
+
+"""
+@brief Function for computing the opposite value of a number
+
+@param a: The number
+@return: The opposite value of a
+
+"""
+def return_opposite(a):
+    return -a
