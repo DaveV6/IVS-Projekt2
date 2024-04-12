@@ -60,6 +60,7 @@ def sub(a, b):
 def div(a, b):
     if b == 0:
         raise ZeroDivisionError('Cannot divide by zero')
+
     return a / b
 
 """
@@ -88,11 +89,12 @@ def root(a, n):
         raise ValueError('Even root of negative number is undefined')
     
     # raise an error for negative base and non-integer exponent (root)
-    if((a < 0) and (n % 1 != 0)):
+    if((a < 0) and contains_decimals(n) and (n % 1 != 0)):
         raise ValueError("Not defined")
     
+    # first makes the number positive, calculates the root and then converts to negative - just like in graph of root functions
     if(a < 0):
-        return -(-a) ** (1/n)
+        return return_opposite((-a) ** (1/n))
     
     return a ** (1/n)
 
@@ -146,3 +148,13 @@ def fact(n):
 """
 def modulo(a, b):
     return a % b
+
+"""
+@brief Function for computing the opposite value of a number
+
+@param a: The number
+@return: The opposite value of a
+
+"""
+def return_opposite(a):
+    return -a
