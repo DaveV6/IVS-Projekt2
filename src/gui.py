@@ -1,5 +1,6 @@
 import sys
 import calc as c 
+import mathlib as ml
 
 # -*- coding: utf-8 -*-
 
@@ -11,10 +12,16 @@ import calc as c
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        self.operation_buffer = ""
+        self.argumentA = 0.0
+        self.argumentB = 0.0
+        self.isArgumentASet = False
+        self.isArgumentBSet = False
+        self.show_notification = ""
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(465, 718)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -29,139 +36,140 @@ class Ui_MainWindow(object):
         self.vysledekPole.setLineWidth(3)
         self.vysledekPole.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.vysledekPole.setObjectName("vysledekPole")
-        self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.pressButton("3"))
+        self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.pressButton("0"))
         self.pushButton_3.setGeometry(QtCore.QRect(110, 610, 71, 61))
         font = QtGui.QFont()
         font.setPointSize(35)
         self.pushButton_3.setFont(font)
         self.pushButton_3.setObjectName("pushButton_3")
-        self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.pressButton("."))
         self.pushButton_4.setGeometry(QtCore.QRect(200, 610, 71, 61))
         font = QtGui.QFont()
         font.setPointSize(35)
         self.pushButton_4.setFont(font)
         self.pushButton_4.setObjectName("pushButton_4")
-        self.pushButton_5 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_5 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.arithmeticButtonPress("mod"))
         self.pushButton_5.setGeometry(QtCore.QRect(20, 610, 71, 61))
         font = QtGui.QFont()
         font.setPointSize(20)
         self.pushButton_5.setFont(font)
         self.pushButton_5.setObjectName("pushButton_5")
-        self.pushButton_6 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_6 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.resetBuffers())
         self.pushButton_6.setGeometry(QtCore.QRect(290, 370, 71, 61))
         font = QtGui.QFont()
         font.setPointSize(35)
         self.pushButton_6.setFont(font)
         self.pushButton_6.setObjectName("pushButton_6")
         self.pushButton_7 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_7.clicked.connect(self.getResult)
         self.pushButton_7.setGeometry(QtCore.QRect(380, 610, 71, 61))
         font = QtGui.QFont()
         font.setPointSize(35)
         self.pushButton_7.setFont(font)
         self.pushButton_7.setObjectName("pushButton_7")
-        self.pushButton_8 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_8 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.pressButton("1"))
         self.pushButton_8.setGeometry(QtCore.QRect(20, 530, 71, 61))
         font = QtGui.QFont()
         font.setPointSize(35)
         self.pushButton_8.setFont(font)
         self.pushButton_8.setObjectName("pushButton_8")
-        self.pushButton_9 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_9 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.pressButton("2"))
         self.pushButton_9.setGeometry(QtCore.QRect(110, 530, 71, 61))
         font = QtGui.QFont()
         font.setPointSize(35)
         self.pushButton_9.setFont(font)
         self.pushButton_9.setObjectName("pushButton_9")
-        self.pushButton_10 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_10 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.pressButton("3"))
         self.pushButton_10.setGeometry(QtCore.QRect(200, 530, 71, 61))
         font = QtGui.QFont()
         font.setPointSize(35)
         self.pushButton_10.setFont(font)
         self.pushButton_10.setObjectName("pushButton_10")
-        self.pushButton_13 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_13 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.pressButton("4"))
         self.pushButton_13.setGeometry(QtCore.QRect(20, 450, 71, 61))
         font = QtGui.QFont()
         font.setPointSize(35)
         self.pushButton_13.setFont(font)
         self.pushButton_13.setObjectName("pushButton_13")
-        self.pushButton_14 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_14 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.pressButton("5"))
         self.pushButton_14.setGeometry(QtCore.QRect(110, 450, 71, 61))
         font = QtGui.QFont()
         font.setPointSize(35)
         self.pushButton_14.setFont(font)
         self.pushButton_14.setObjectName("pushButton_14")
-        self.pushButton_15 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_15 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.pressButton("6"))
         self.pushButton_15.setGeometry(QtCore.QRect(200, 450, 71, 61))
         font = QtGui.QFont()
         font.setPointSize(35)
         self.pushButton_15.setFont(font)
         self.pushButton_15.setObjectName("pushButton_15")
-        self.pushButton_16 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_16 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.pressButton("7"))
         self.pushButton_16.setGeometry(QtCore.QRect(20, 370, 71, 61))
         font = QtGui.QFont()
         font.setPointSize(35)
         self.pushButton_16.setFont(font)
         self.pushButton_16.setObjectName("pushButton_16")
-        self.pushButton_17 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_17 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.pressButton("8"))
         self.pushButton_17.setGeometry(QtCore.QRect(110, 370, 71, 61))
         font = QtGui.QFont()
         font.setPointSize(35)
         self.pushButton_17.setFont(font)
         self.pushButton_17.setObjectName("pushButton_17")
-        self.pushButton_18 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_18 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.pressButton("9"))
         self.pushButton_18.setGeometry(QtCore.QRect(200, 370, 71, 61))
         font = QtGui.QFont()
         font.setPointSize(35)
         self.pushButton_18.setFont(font)
         self.pushButton_18.setObjectName("pushButton_18")
-        self.pushButton_19 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_19 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.arithmeticButtonPress("+"))
         self.pushButton_19.setGeometry(QtCore.QRect(380, 450, 71, 61))
         font = QtGui.QFont()
         font.setPointSize(35)
         self.pushButton_19.setFont(font)
         self.pushButton_19.setObjectName("pushButton_19")
-        self.pushButton_20 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_20 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.arithmeticButtonPress("-"))
         self.pushButton_20.setGeometry(QtCore.QRect(380, 530, 71, 61))
         font = QtGui.QFont()
         font.setPointSize(35)
         self.pushButton_20.setFont(font)
         self.pushButton_20.setObjectName("pushButton_20")
-        self.pushButton_21 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_21 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.arithmeticButtonPress("×"))
         self.pushButton_21.setGeometry(QtCore.QRect(290, 450, 71, 61))
         font = QtGui.QFont()
         font.setPointSize(35)
         self.pushButton_21.setFont(font)
         self.pushButton_21.setObjectName("pushButton_21")
-        self.pushButton_22 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_22 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.arithmeticButtonPress("÷"))
         self.pushButton_22.setGeometry(QtCore.QRect(290, 530, 71, 61))
         font = QtGui.QFont()
         font.setPointSize(35)
         self.pushButton_22.setFont(font)
         self.pushButton_22.setObjectName("pushButton_22")
-        self.pushButton_23 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_23 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.arithmeticButtonPress("ⁿ√x"))
         self.pushButton_23.setGeometry(QtCore.QRect(20, 290, 71, 61))
         font = QtGui.QFont()
         font.setPointSize(30)
         self.pushButton_23.setFont(font)
         self.pushButton_23.setObjectName("pushButton_23")
-        self.pushButton_24 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_24 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.arithmeticButtonPress("x²"))
         self.pushButton_24.setGeometry(QtCore.QRect(110, 290, 71, 61))
         font = QtGui.QFont()
         font.setPointSize(30)
         self.pushButton_24.setFont(font)
         self.pushButton_24.setObjectName("pushButton_24")
-        self.pushButton_25 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_25 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.getResultUnary("!"))
         self.pushButton_25.setGeometry(QtCore.QRect(290, 610, 71, 61))
         font = QtGui.QFont()
         font.setPointSize(30)
         self.pushButton_25.setFont(font)
         self.pushButton_25.setObjectName("pushButton_25")
-        self.pushButton_26 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_26 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.getResultUnary("⌫"))
         self.pushButton_26.setGeometry(QtCore.QRect(380, 370, 71, 61))
         font = QtGui.QFont()
         font.setPointSize(30)
         self.pushButton_26.setFont(font)
         self.pushButton_26.setObjectName("pushButton_26")
-        self.pushButton_27 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_27 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.getResultUnary("+/-"))
         self.pushButton_27.setGeometry(QtCore.QRect(200, 290, 71, 61))
         font = QtGui.QFont()
         font.setPointSize(30)
@@ -251,12 +259,100 @@ class Ui_MainWindow(object):
         self.actionBasic.setText(_translate("MainWindow", "Basic"))
 
     def pressButton(self, pressed):
-        if self.vysledekPole.text() == "0":
-            self.vysledekPole.setText(pressed)
+        
+            if self.vysledekPole.text() == "0":
+                self.vysledekPole.setText(pressed)
+            else:
+                self.vysledekPole.setText(self.vysledekPole.text() + pressed)
+       
+
+    def arithmeticButtonPress(self, pressed):
+
+        if self.operation_buffer != "":
+            self.show_notification("Can't have more than one operation selected at a time")
+        
+
         else:
-            self.vysledekPole.setText(self.vysledekPole.text() + pressed)
+            self.operation_buffer = pressed
+            if self.isArgumentASet == False:
+                self.argumentA = self.vysledekPole.text()
+                self.isArgumentASet = True
+                self.vysledekPole.setText("0")
+            elif self.isArgumentBSet == False:
+                self.vysledekPole.setText("0")
+                
+            
+    
+                
+    def getResult(self):
+        
+        if self.isArgumentBSet == False:
+            self.argumentB = self.vysledekPole.text()
+            self.isArgumentBSet = True
+        print(self.argumentA)
+        print(self.argumentB)
+        if self.operation_buffer == "":
+            self.show_notification("No operation selected")
+        elif self.operation_buffer == "+":
+            res = ml.add(float(self.argumentA), float(self.argumentB))
+            self.vysledekPole.setText(str(res))
+        elif self.operation_buffer == "-":
+            res = ml.sub(float(self.argumentA), float(self.argumentB))
+            self.vysledekPole.setText(str(res))
+        elif self.operation_buffer == "×":
+            res = ml.mul(float(self.argumentA), float(self.argumentB))
+            self.vysledekPole.setText(str(res))
+        elif self.operation_buffer == "÷":
+            res = ml.div(float(self.argumentA), float(self.argumentB))
+            self.vysledekPole.setText(str(res))
+        elif self.operation_buffer == "x²":
+            res = ml.pow(float(self.argumentA), float(self.argumentB))
+            self.vysledekPole.setText(str(res)) 
+        elif self.operation_buffer == "ⁿ√x":
+            res = ml.root(float(self.argumentA), float(self.argumentB))
+            self.vysledekPole.setText(str(res))
+        elif self.operation_buffer == "mod":
+            res = ml.modulo(float(self.argumentA), float(self.argumentB))
+            self.vysledekPole.setText(str(res))
+        else:
+            self.show_notification("Invalid operation selected")
+        self.argumentA = res
+        self.isArgumentASet = True
+        self.operation_buffer = ""
+        self.argumentB = 0.0
+        self.isArgumentBSet = False
 
-
+        
+    def getResultUnary(self, pressed):
+        if pressed == "⌫":
+            res = ml.backspace(float(self.vysledekPole.text()))
+            self.vysledekPole.setText(str(res))
+            return
+        if self.isArgumentASet == False:
+            self.argumentA = self.vysledekPole.text()
+            self.isArgumentASet = True
+        if pressed == "":
+            self.show_notification("No operation selected")
+        elif pressed == "!":
+            res = ml.fact(float(self.argumentA))
+            self.vysledekPole.setText(str(res))
+        elif pressed == "+/-":
+            res = ml.return_opposite(int(self.argumentA))
+            self.vysledekPole.setText(str(res))
+        self.argumentA = res
+        self.isArgumentASet = True
+        self.operation_buffer = ""
+        self.argumentB = 0.0
+        self.isArgumentBSet = False
+        
+    def resetBuffers(self):
+        self.vysledekPole.setText("0")
+        self.operation_buffer = ""
+        self.argumentA = 0.0
+        self.argumentB = 0.0
+        self.isArgumentASet = False
+        self.isArgumentBSet = False
+        
 
 class CalculatorWindow(QMainWindow):
     def __init__(self):
