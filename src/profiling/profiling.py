@@ -1,3 +1,21 @@
+'''**************************************************************************************************
+*   Project: IVS project 2 (Calculator)
+*
+*   File:           profiling.py
+*   Description:    This file serves for profiling of our mathlib - calculates standard deviation
+*                   from the formula given in the assignment and prints out the output as a flat profile.
+*
+*   Last change:    13.04.2024
+*   Date:           13.04.2024
+*   Author:         Jakub Havlík (xhavlij00)
+**************************************************************************************************'''
+"""
+@file profiling.py
+@author Jakub Havlík (xhavlij00)
+@brief Mathlib profiling - calculates standard deviation from given formula
+"""
+
+
 import sys
 import cProfile
 #cProfile uses "deterministic profiling", as they call it - instrumented code is not needed when the program is interpreted already.
@@ -6,6 +24,9 @@ sys.path.append('../')
 import mathlib
 
 
+"""
+@brief reads all lines from stdin and calculates the standard deviation
+"""
 def profiler_function():
     input = []
     for line in sys.stdin:
