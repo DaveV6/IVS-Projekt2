@@ -175,13 +175,34 @@ class Ui_MainWindow(object):
         font.setPointSize(30)
         self.pushButton_27.setFont(font)
         self.pushButton_27.setObjectName("pushButton_27")
+        self.allButons = [self.pushButton_3, self.pushButton_4, self.pushButton_5, self.pushButton_6, self.pushButton_7, self.pushButton_8,
+                          self.pushButton_9, self.pushButton_10, self.pushButton_13, self.pushButton_14, self.pushButton_15, self.pushButton_16,
+                            self.pushButton_17, self.pushButton_18, self.pushButton_19, self.pushButton_20, self.pushButton_21, self.pushButton_22,
+                            self.pushButton_23, self.pushButton_24, self.pushButton_25, self.pushButton_26, self.pushButton_27]
+                          
+
+
+
+
+
+
+
+
+
+
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(6, -8, 451, 681))
+        self.label.setGeometry(QtCore.QRect(6, -18, 451, 711))
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("pictures/testwallpaper.jpg"))
+        self.label.setPixmap(QtGui.QPixmap("pictures/wallpaperbasic.jpg"))
         self.label.setScaledContents(True)
         self.label.setObjectName("label")
         self.label.raise_()
+        self.historieVysledku = QtWidgets.QLabel(self.centralwidget)
+        self.historieVysledku.setGeometry(QtCore.QRect(20, 20, 411, 20))
+        self.historieVysledku.setObjectName("historieVysledku")
+        self.historieVysledku.setText("")
+        self.historieVysledku.setAlignment(QtCore.Qt.AlignRight)
+        self.historieVysledku.setStyleSheet("font-size: 12px; ")
         self.vysledekPole.raise_()
         self.pushButton_3.raise_()
         self.pushButton_4.raise_()
@@ -210,23 +231,25 @@ class Ui_MainWindow(object):
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 465, 21))
         self.menubar.setObjectName("menubar")
+        self.menu = QtWidgets.QMenu(self.menubar)
+        self.menu.setObjectName("menuSkins")
         self.menuSkins = QtWidgets.QMenu(self.menubar)
-        self.menuSkins.setObjectName("menuSkins")
-        self.menuSkins_2 = QtWidgets.QMenu(self.menubar)
-        self.menuSkins_2.setObjectName("menuSkins_2")
+        self.menuSkins.setObjectName("menuSkins_2")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        self.actionBasic = QtWidgets.QAction(MainWindow)
+        self.actionBasic = QtWidgets.QAction(MainWindow, triggered = lambda: self.changeSkin("Basic"))
         self.actionBasic.setObjectName("actionBasic")
+        self.actionDarkMode = QtWidgets.QAction(MainWindow, triggered = lambda: self.changeSkin("Dark Mode"))
+        self.actionDarkMode.setObjectName("actionDarkMode")
         self.menuSkins.addAction(self.actionBasic)
+        self.menuSkins.addAction(self.actionDarkMode)
+        self.menubar.addAction(self.menu.menuAction())
         self.menubar.addAction(self.menuSkins.menuAction())
-        self.menubar.addAction(self.menuSkins_2.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "SwagAnimeDripCalculator 1.0"))
@@ -254,10 +277,13 @@ class Ui_MainWindow(object):
         self.pushButton_25.setText(_translate("MainWindow", "!"))
         self.pushButton_26.setText(_translate("MainWindow", "⌫"))
         self.pushButton_27.setText(_translate("MainWindow", "+/-"))
-        self.menuSkins.setTitle(_translate("MainWindow", "Menu"))
-        self.menuSkins_2.setTitle(_translate("MainWindow", "Skins"))
+        self.menu.setTitle(_translate("MainWindow", "Menu"))
+        self.menuSkins.setTitle(_translate("MainWindow", "Skins"))
         self.actionBasic.setText(_translate("MainWindow", "Basic"))
+        self.actionDarkMode.setText(_translate("MainWindow", "Dark Mode"))
 
+
+        self.changeSkin("Basic")
     def pressButton(self, pressed):
         
             if self.vysledekPole.text() == "0":
@@ -270,7 +296,7 @@ class Ui_MainWindow(object):
 
         if self.operation_buffer != "":
             self.show_notification("Can't have more than one operation selected at a time")
-        
+
 
         else:
             self.operation_buffer = pressed
@@ -278,8 +304,10 @@ class Ui_MainWindow(object):
                 self.argumentA = self.vysledekPole.text()
                 self.isArgumentASet = True
                 self.vysledekPole.setText("0")
+                self.historieVysledku.setText(self.argumentA +  self.operation_buffer)
             elif self.isArgumentBSet == False:
                 self.vysledekPole.setText("0")
+                self.historieVysledku.setText(str(self.argumentA) + self.operation_buffer)
                 
             
     
@@ -289,6 +317,7 @@ class Ui_MainWindow(object):
         if self.isArgumentBSet == False:
             self.argumentB = self.vysledekPole.text()
             self.isArgumentBSet = True
+            self.historieVysledku.setText(self.historieVysledku.text() + self.argumentB)
         print(self.argumentA)
         print(self.argumentB)
         if self.operation_buffer == "":
@@ -321,6 +350,7 @@ class Ui_MainWindow(object):
         self.operation_buffer = ""
         self.argumentB = 0.0
         self.isArgumentBSet = False
+        self.historieVysledku.setText(self.historieVysledku.text() + " = " + self.vysledekPole.text())
 
         
     def getResultUnary(self, pressed):
@@ -352,7 +382,72 @@ class Ui_MainWindow(object):
         self.argumentB = 0.0
         self.isArgumentASet = False
         self.isArgumentBSet = False
+        self.historieVysledku.setText("")
         
+
+
+
+
+    def changeSkin(self, skin):
+        if skin == "Basic":
+            self.label.setPixmap(QtGui.QPixmap("pictures/wallpaperbasic.jpg"))
+            self.label.setScaledContents(True)
+            self.vysledekPole.setStyleSheet("color: white")
+            self.historieVysledku.setStyleSheet("color: white")
+            button_style = """
+QPushButton {
+    border: 1px solid black;
+    background-color: #f0f0f0;
+    color: black;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 24px;
+    opacity: 0.1;
+}
+
+QPushButton:hover {
+    background-color: #d3d3d3;
+}
+
+QPushButton:pressed {
+    background-color: #c0c0c0;
+}
+"""
+            for i in self.allButons:
+                    
+                     i.setStyleSheet(button_style)
+
+        elif skin == "Dark Mode":
+            self.label.setPixmap(QtGui.QPixmap("pictures/blackwallpaper.jpeg"))
+            self.label.setScaledContents(True)
+            self.vysledekPole.setStyleSheet("color: white")
+            self.historieVysledku.setStyleSheet("color: white")
+            button_style = """
+QPushButton {
+    border: 1px solid white;
+    background-color: #808080;
+    color: white;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 24px;
+}
+
+QPushButton:hover {
+    background-color: #A9A9A9;
+}
+
+QPushButton:pressed {
+    background-color: #696969; 
+}
+
+"""
+            for i in self.allButons:
+                
+                 i.setStyleSheet(button_style)
+               
+
+
+
 
 class CalculatorWindow(QMainWindow):
     def __init__(self):
