@@ -395,23 +395,24 @@ class Ui_MainWindow(object):
             self.vysledekPole.setStyleSheet("color: white")
             self.historieVysledku.setStyleSheet("color: white")
             button_style = """
-QPushButton {
-    border: 1px solid black;
-    background-color: #f0f0f0;
-    color: black;
-    border-radius: 5px;
-    padding: 5px 10px;
-    font-size: 24px;
-    opacity: 0.1;
-}
+    QPushButton {
+        border: 1px solid black;
+        background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                          stop:0 #3f3f3f, stop:1 #5f5f5f);
+        color: white;
+        border-radius: 5px;
+        padding: 5px 10px;
+        font-size: 24px;
+        opacity: 0.8;
+    }
 
-QPushButton:hover {
-    background-color: #d3d3d3;
-}
+    QPushButton:hover {
+        background-color: #6f6f6f;
+    }
 
-QPushButton:pressed {
-    background-color: #c0c0c0;
-}
+    QPushButton:pressed {
+        background-color: #4f4f4f;
+    }
 """
             for i in self.allButons:
                     
