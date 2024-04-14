@@ -13,6 +13,8 @@ def addCharToResultArr(resultArr, a):
     resultArr+=a
     return resultArr
 
+def round_res(result, x):
+    return float(round(result, x))
 
 
 resultArr = "0"

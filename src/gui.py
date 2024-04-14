@@ -12,7 +12,7 @@ import mathlib as ml
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QSlider
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -313,6 +313,8 @@ class Ui_MainWindow(object):
     
                 
     def getResult(self):
+        round_coeficient = 12
+        operations = ["+", "-", "×", "÷", "x²", "ⁿ√x", "mod"]
         
         if self.isArgumentBSet == False:
             self.argumentB = self.vysledekPole.text()
@@ -320,31 +322,33 @@ class Ui_MainWindow(object):
             self.historieVysledku.setText(self.historieVysledku.text() + self.argumentB)
         print(self.argumentA)
         print(self.argumentB)
-        if self.operation_buffer == "":
-            self.show_notification("No operation selected")
-        elif self.operation_buffer == "+":
-            res = ml.add(float(self.argumentA), float(self.argumentB))
-            self.vysledekPole.setText(str(res))
-        elif self.operation_buffer == "-":
-            res = ml.sub(float(self.argumentA), float(self.argumentB))
-            self.vysledekPole.setText(str(res))
-        elif self.operation_buffer == "×":
-            res = ml.mul(float(self.argumentA), float(self.argumentB))
-            self.vysledekPole.setText(str(res))
-        elif self.operation_buffer == "÷":
-            res = ml.div(float(self.argumentA), float(self.argumentB))
-            self.vysledekPole.setText(str(res))
-        elif self.operation_buffer == "x²":
-            res = ml.pow(float(self.argumentA), float(self.argumentB))
-            self.vysledekPole.setText(str(res)) 
-        elif self.operation_buffer == "ⁿ√x":
-            res = ml.root(float(self.argumentA), float(self.argumentB))
-            self.vysledekPole.setText(str(res))
-        elif self.operation_buffer == "mod":
-            res = ml.modulo(float(self.argumentA), float(self.argumentB))
-            self.vysledekPole.setText(str(res))
-        else:
+        if self.operation_buffer not in operations:
             self.show_notification("Invalid operation selected")
+            return
+        elif self.operation_buffer == "":
+            self.show_notification("No operation selected")
+        else:
+            match self.operation_buffer:
+                case "+":
+                    res = ml.add(float(self.argumentA), float(self.argumentB))
+                case "-":
+                    res = ml.sub(float(self.argumentA), float(self.argumentB))
+                case "×":
+                    res = ml.mul(float(self.argumentA), float(self.argumentB))
+                case "÷":
+                    res = ml.div(float(self.argumentA), float(self.argumentB))
+                case "mod":
+                    res = ml.modulo(float(self.argumentA), float(self.argumentB))
+                case "x²":
+                    res = ml.pow(float(self.argumentA), float(self.argumentB))
+                case "ⁿ√x":
+                    res = ml.root(float(self.argumentA), float(self.argumentB))
+        if(len(str(res)) > 12):
+            round_coeficient = 5
+        if(res % 1 == 0):
+            res = int(res)
+        self.vysledekPole.setText(str(round(res, round_coeficient)))
+        
         self.argumentA = res
         self.isArgumentASet = True
         self.operation_buffer = ""
@@ -367,7 +371,7 @@ class Ui_MainWindow(object):
             res = ml.fact(float(self.argumentA))
             self.vysledekPole.setText(str(res))
         elif pressed == "+/-":
-            res = ml.return_opposite(int(self.argumentA))
+            res = ml.return_opposite(float(self.argumentA))
             self.vysledekPole.setText(str(res))
         self.argumentA = res
         self.isArgumentASet = True
