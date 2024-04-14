@@ -40,11 +40,14 @@ pack:
 	cp -r doc/* $(DIR)/doc
 	cp -r ../installer/* $(DIR)/installer
 	zip -r $(DIR).zip $(DIR)
+
 doc:
 	doxygen Doxyfile
 
 profile: profiling/profiling.py
-	cd profiling && ./generate_input 1000 && $(PY) profiling.py < input1000.txt 
+	cd profiling && ./generate_input 10 && $(PY) profiling.py < input_10.txt
+	cd profiling && ./generate_input 1000 && $(PY) profiling.py < input_1000.txt
+	cd profiling && ./generate_input 1000000 && $(PY) profiling.py < input_1000000.txt 
 
 clean:
-	rm -rf __pycache__/ && rm -rf tests/__pycache__/ && rm -rf tests/.pytest_cache/ && rm -rf profiling/*.txt
+	rm -rf __pycache__/ && rm -rf tests/__pycache__/ && rm -rf tests/.pytest_cache/ && rm -rf profiling/*.txt && rm -rf html/ && rm -rf latex/
