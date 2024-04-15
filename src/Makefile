@@ -23,9 +23,7 @@ DIR = ../../$(ARCHIVE)
 all: setup
 
 setup:
-	sudo apt install $(PY)-pip
-	$(PIP) install pytest
-	$(PIP) install pyqt5
+	$(PIP) install -r requirements.txt
 
 run: gui.py
 	$(PY) gui.py
