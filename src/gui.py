@@ -2,6 +2,7 @@ import sys
 import calc as c 
 import mathlib as ml
 import decimal
+import buttons as b 
 
 
 
@@ -241,9 +242,22 @@ class Ui_MainWindow(object):
         self.actionNastaveni = QtWidgets.QAction(MainWindow)
         self.actionNastaveni.setObjectName("actionNastaveni")
         self.actionNastaveni.triggered.connect(self.openSettings)
+        self.actionPurpleBlue = QtWidgets.QAction(MainWindow, triggered = lambda: self.changeSkin("Purple Blue"))
+        self.actionPurpleBlue.setObjectName("actionPurpleBlue")
+        self.actionDarkGreen = QtWidgets.QAction(MainWindow, triggered = lambda: self.changeSkin("Dark Green"))
+        self.actionDarkGreen.setObjectName("actionDarkGreen")
+        self.actionHelp = QtWidgets.QAction(MainWindow)
+        self.actionHelp.setObjectName("actionHelp")
+
+
+
         self.menuSkins.addAction(self.actionBasic)
         self.menuSkins.addAction(self.actionDarkMode)
+        self.menuSkins.addAction(self.actionPurpleBlue)
+        self.menuSkins.addAction(self.actionDarkGreen)
+        self.menu.addAction(self.actionHelp)
         self.menu.addAction(self.actionNastaveni)
+        
         self.menubar.addAction(self.menu.menuAction())
         self.menubar.addAction(self.menuSkins.menuAction())
 
@@ -281,6 +295,10 @@ class Ui_MainWindow(object):
         self.actionBasic.setText(_translate("MainWindow", "Basic"))
         self.actionDarkMode.setText(_translate("MainWindow", "Dark Mode"))
         self.actionNastaveni.setText(_translate("MainWindow", "Set Floating Point Precision"))
+        self.actionPurpleBlue.setText(_translate("MainWindow", "Purple Blue"))
+        self.actionDarkGreen.setText(_translate("MainWindow", "Dark Green"))
+        self.actionHelp.setText(_translate("MainWindow", "Help"))
+        
 
 
         self.changeSkin("Basic")
@@ -460,26 +478,7 @@ class Ui_MainWindow(object):
             self.label.setScaledContents(True)
             self.vysledekPole.setStyleSheet("color: white")
             self.historieVysledku.setStyleSheet("color: white")
-            button_style = """
-    QPushButton {
-        border: 1px solid black;
-        background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-                                          stop:0 #3f3f3f, stop:1 #5f5f5f);
-        color: white;
-        border-radius: 5px;
-        padding: 5px 10px;
-        font-size: 24px;
-        opacity: 0.8;
-    }
-
-    QPushButton:hover {
-        background-color: #6f6f6f;
-    }
-
-    QPushButton:pressed {
-        background-color: #4f4f4f;
-    }
-""" 
+            button_style = b.buttonBasic
             
             self.label.pixmap()
             for i in self.allButons:
@@ -491,30 +490,32 @@ class Ui_MainWindow(object):
             self.label.setScaledContents(True)
             self.vysledekPole.setStyleSheet("color: white")
             self.historieVysledku.setStyleSheet("color: white")
-            button_style = """
-    QPushButton {
-        border: 1px solid black;
-        background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-                                          stop:0 #3f3f3f, stop:1 #5f5f5f);
-        color: white;
-        border-radius: 5px;
-        padding: 5px 10px;
-        font-size: 24px;
-        opacity: 0.8;
-    }
-
-    QPushButton:hover {
-        background-color: #6f6f6f;
-    }
-
-    QPushButton:pressed {
-        background-color: #4f4f4f;
-    }
-""" 
+            button_style = b.buttonBasic
             for i in self.allButons:
                 
                  i.setStyleSheet(button_style)
                
+
+        elif skin == "Purple Blue":
+            self.label.setPixmap(QtGui.QPixmap("pictures/wallpaperpurpleblue.PNG"))
+            self.label.setScaledContents(True)
+            self.vysledekPole.setStyleSheet("color: white")
+            self.historieVysledku.setStyleSheet("color: white")
+            button_style = b.buttonPurple
+            for i in self.allButons:
+                
+                 i.setStyleSheet(button_style)
+
+
+        elif skin == "Dark Green":
+            self.label.setPixmap(QtGui.QPixmap("pictures/wallpaperdarkgreen.PNG"))
+            self.label.setScaledContents(True)
+            self.vysledekPole.setStyleSheet("color: white")
+            self.historieVysledku.setStyleSheet("color: white")
+            button_style = b.buttonDarkGreen
+            for i in self.allButons:
+                
+                 i.setStyleSheet(button_style)
     def openSettings(self, QDialog):
         dialog = SettingsDialog()
         dialog.exec_()
