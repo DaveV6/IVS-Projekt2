@@ -1,18 +1,12 @@
 import sys
 import calc as c 
 import mathlib as ml
+import decimal
 
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'calcc.ui'
-#
-# Created by: PyQt5 UI code generator 5.14.1
-#
-# WARNING! All changes made in this file will be lost!
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QSlider
+from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, QVBoxLayout, QWidget, QLabel, QSpinBox, QPushButton, QDialog
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -22,6 +16,7 @@ class Ui_MainWindow(object):
         self.isArgumentASet = False
         self.isArgumentBSet = False
         self.show_notification = ""
+        self.floatnumCounter = "{:.6f}"
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(465, 718)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -151,7 +146,7 @@ class Ui_MainWindow(object):
         font.setPointSize(30)
         self.pushButton_23.setFont(font)
         self.pushButton_23.setObjectName("pushButton_23")
-        self.pushButton_24 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.arithmeticButtonPress("x²"))
+        self.pushButton_24 = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.arithmeticButtonPress("xⁿ"))
         self.pushButton_24.setGeometry(QtCore.QRect(110, 290, 71, 61))
         font = QtGui.QFont()
         font.setPointSize(30)
@@ -243,8 +238,12 @@ class Ui_MainWindow(object):
         self.actionBasic.setObjectName("actionBasic")
         self.actionDarkMode = QtWidgets.QAction(MainWindow, triggered = lambda: self.changeSkin("Dark Mode"))
         self.actionDarkMode.setObjectName("actionDarkMode")
+        self.actionNastaveni = QtWidgets.QAction(MainWindow)
+        self.actionNastaveni.setObjectName("actionNastaveni")
+        self.actionNastaveni.triggered.connect(self.openSettings)
         self.menuSkins.addAction(self.actionBasic)
         self.menuSkins.addAction(self.actionDarkMode)
+        self.menu.addAction(self.actionNastaveni)
         self.menubar.addAction(self.menu.menuAction())
         self.menubar.addAction(self.menuSkins.menuAction())
 
@@ -273,7 +272,7 @@ class Ui_MainWindow(object):
         self.pushButton_21.setText(_translate("MainWindow", "×"))
         self.pushButton_22.setText(_translate("MainWindow", "÷"))
         self.pushButton_23.setText(_translate("MainWindow", "ⁿ√x"))
-        self.pushButton_24.setText(_translate("MainWindow", "x²"))
+        self.pushButton_24.setText(_translate("MainWindow", "xⁿ"))
         self.pushButton_25.setText(_translate("MainWindow", "!"))
         self.pushButton_26.setText(_translate("MainWindow", "⌫"))
         self.pushButton_27.setText(_translate("MainWindow", "+/-"))
@@ -281,9 +280,16 @@ class Ui_MainWindow(object):
         self.menuSkins.setTitle(_translate("MainWindow", "Skins"))
         self.actionBasic.setText(_translate("MainWindow", "Basic"))
         self.actionDarkMode.setText(_translate("MainWindow", "Dark Mode"))
+        self.actionNastaveni.setText(_translate("MainWindow", "Set Floating Point Precision"))
 
 
         self.changeSkin("Basic")
+
+    def keyPressEvent(self, e):
+        print("event", e)
+        
+
+    
     def pressButton(self, pressed):
         
             if self.vysledekPole.text() == "0":
@@ -293,7 +299,9 @@ class Ui_MainWindow(object):
        
 
     def arithmeticButtonPress(self, pressed):
-
+        if self.historieVysledku == "Cannot divide by zero":
+            self.historieVysledku.setText("")
+            self.vysledekPole.setText("0")
         if self.operation_buffer != "":
             self.show_notification("Can't have more than one operation selected at a time")
 
@@ -313,9 +321,11 @@ class Ui_MainWindow(object):
     
                 
     def getResult(self):
-        round_coeficient = 12
-        operations = ["+", "-", "×", "÷", "x²", "ⁿ√x", "mod"]
         
+
+        operations = ["+", "-", "×", "÷", "xⁿ", "ⁿ√x", "mod"]
+        if self.operation_buffer == "":
+            return
         if self.isArgumentBSet == False:
             self.argumentB = self.vysledekPole.text()
             self.isArgumentBSet = True
@@ -325,39 +335,62 @@ class Ui_MainWindow(object):
         if self.operation_buffer not in operations:
             self.show_notification("Invalid operation selected")
             return
-        elif self.operation_buffer == "":
-            self.show_notification("No operation selected")
+        
         else:
-            match self.operation_buffer:
-                case "+":
-                    res = ml.add(float(self.argumentA), float(self.argumentB))
-                case "-":
-                    res = ml.sub(float(self.argumentA), float(self.argumentB))
-                case "×":
-                    res = ml.mul(float(self.argumentA), float(self.argumentB))
-                case "÷":
+            if self.operation_buffer == "+":
+                res = ml.add(float(self.argumentA), float(self.argumentB))
+            elif self.operation_buffer == "-":
+                res = ml.sub(float(self.argumentA), float(self.argumentB))
+            elif self.operation_buffer == "×":
+                res = ml.mul(float(self.argumentA), float(self.argumentB))
+            elif self.operation_buffer == "÷":
+                try:
                     res = ml.div(float(self.argumentA), float(self.argumentB))
-                case "mod":
+                except ZeroDivisionError:
+                    self.historieVysledku.setText("Cannot divide by zero")
+                    self.resetBuffersNoHistChange()
+                    return
+            elif self.operation_buffer == "mod":
+                try:
                     res = ml.modulo(float(self.argumentA), float(self.argumentB))
-                case "x²":
-                    res = ml.pow(float(self.argumentA), float(self.argumentB))
-                case "ⁿ√x":
+                except ZeroDivisionError:
+                    self.historieVysledku.setText("Cannot divide by zero")
+                    self.resetBuffersNoHistChange()
+                    return
+            elif self.operation_buffer == "xⁿ":
+                    try:
+                        res = ml.pow(float(self.argumentA), float(self.argumentB))
+                    except ValueError:
+                        self.historieVysledku.setText("Invalid Power Input")
+                        self.resetBuffersNoHistChange()
+                        return
+            elif self.operation_buffer == "ⁿ√x":
+                try:
                     res = ml.root(float(self.argumentA), float(self.argumentB))
-        if(len(str(res)) > 12):
-            round_coeficient = 5
-        if(res % 1 == 0):
-            res = int(res)
-        self.vysledekPole.setText(str(round(res, round_coeficient)))
-        
-        self.argumentA = res
-        self.isArgumentASet = True
-        self.operation_buffer = ""
-        self.argumentB = 0.0
-        self.isArgumentBSet = False
-        self.historieVysledku.setText(self.historieVysledku.text() + " = " + self.vysledekPole.text())
+                except ValueError:
+                    self.historieVysledku.setText("Cannot root negative number")
+                    self.resetBuffersNoHistChange()
+                    return
+            resShown = str(res)
+            if decimal.Decimal(res).as_tuple().exponent < -5:
+                resShown = self.floatnumCounter.format(res)
+            self.vysledekPole.setText(str(resShown))
+            if len(str(resShown)) > 12:
+                print("Here")
+                resShown = decimal.Decimal(resShown)
+                resShown = format(resShown, '.6e')
+                self.vysledekPole.setText(str(resShown))
+            resShown = 0.0
+            self.argumentA = res
+            self.isArgumentASet = True
+            self.operation_buffer = ""
+            self.argumentB = 0.0
+            self.isArgumentBSet = False
+            self.historieVysledku.setText(self.historieVysledku.text() + " = " + self.vysledekPole.text())
 
-        
+    
     def getResultUnary(self, pressed):
+        
         if pressed == "⌫":
             res = ml.backspace(float(self.vysledekPole.text()))
             self.vysledekPole.setText(str(res))
@@ -368,16 +401,39 @@ class Ui_MainWindow(object):
         if pressed == "":
             self.show_notification("No operation selected")
         elif pressed == "!":
-            res = ml.fact(float(self.argumentA))
-            self.vysledekPole.setText(str(res))
+            try:
+                res = ml.fact(float(self.argumentA))
+            except ValueError:
+                self.historieVysledku.setText("Invalid Factorial Input")
+                self.resetBuffersNoHistChange()
+                return
         elif pressed == "+/-":
             res = ml.return_opposite(float(self.argumentA))
             self.vysledekPole.setText(str(res))
+
+        
+        resShown = str(res)
+        if decimal.Decimal(res).as_tuple().exponent < -5:
+            resShown = self.floatnumCounter.format(res)
+        self.vysledekPole.setText(str(resShown))
+        if len(str(resShown)) > 12:
+                print("Here")
+                resShown = decimal.Decimal(resShown)
+                resShown = format(resShown, '.5e')
+                self.vysledekPole.setText(str(resShown))
+        if pressed =="!":
+            self.historieVysledku.setText(str(self.argumentA) + "! =" + self.vysledekPole.text())
+
+
+        
+        resShown = 0.0
         self.argumentA = res
         self.isArgumentASet = True
         self.operation_buffer = ""
         self.argumentB = 0.0
         self.isArgumentBSet = False
+        
+
         
     def resetBuffers(self):
         self.vysledekPole.setText("0")
@@ -390,11 +446,17 @@ class Ui_MainWindow(object):
         
 
 
-
+    def resetBuffersNoHistChange(self):
+        self.vysledekPole.setText("0")
+        self.operation_buffer = ""
+        self.argumentA = 0.0
+        self.argumentB = 0.0
+        self.isArgumentASet = False
+        self.isArgumentBSet = False
 
     def changeSkin(self, skin):
         if skin == "Basic":
-            self.label.setPixmap(QtGui.QPixmap("pictures/wallpaperbasic.jpg"))
+            self.label.setPixmap(QtGui.QPixmap("pictures/basicwallpaper.png"))
             self.label.setScaledContents(True)
             self.vysledekPole.setStyleSheet("color: white")
             self.historieVysledku.setStyleSheet("color: white")
@@ -417,7 +479,9 @@ class Ui_MainWindow(object):
     QPushButton:pressed {
         background-color: #4f4f4f;
     }
-"""
+""" 
+            
+            self.label.pixmap()
             for i in self.allButons:
                     
                      i.setStyleSheet(button_style)
@@ -428,30 +492,64 @@ class Ui_MainWindow(object):
             self.vysledekPole.setStyleSheet("color: white")
             self.historieVysledku.setStyleSheet("color: white")
             button_style = """
-QPushButton {
-    border: 1px solid white;
-    background-color: #808080;
-    color: white;
-    border-radius: 5px;
-    padding: 5px 10px;
-    font-size: 24px;
-}
+    QPushButton {
+        border: 1px solid black;
+        background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                          stop:0 #3f3f3f, stop:1 #5f5f5f);
+        color: white;
+        border-radius: 5px;
+        padding: 5px 10px;
+        font-size: 24px;
+        opacity: 0.8;
+    }
 
-QPushButton:hover {
-    background-color: #A9A9A9;
-}
+    QPushButton:hover {
+        background-color: #6f6f6f;
+    }
 
-QPushButton:pressed {
-    background-color: #696969; 
-}
-
-"""
+    QPushButton:pressed {
+        background-color: #4f4f4f;
+    }
+""" 
             for i in self.allButons:
                 
                  i.setStyleSheet(button_style)
                
+    def openSettings(self, QDialog):
+        dialog = SettingsDialog()
+        dialog.exec_()
+        decimal_places = dialog.getDecimalPlaces()
+        self.floatnumCounter = "{:." + str(decimal_places) + "f}"
+        
 
+    
+       
+class SettingsDialog(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Set Floating Point Precision")
+        self.initUI()
 
+    def initUI(self):
+        layout = QVBoxLayout()
+
+        self.label = QLabel("Set the number of decimal places:")
+        layout.addWidget(self.label)
+
+        self.decimalSpinBox = QSpinBox()
+        self.decimalSpinBox.setMinimum(0)
+        self.decimalSpinBox.setMaximum(10)
+        self.decimalSpinBox.setValue(6)  
+        layout.addWidget(self.decimalSpinBox)
+
+        self.okButton = QPushButton("OK")
+        self.okButton.clicked.connect(self.accept)
+        layout.addWidget(self.okButton)
+
+        self.setLayout(layout)
+
+    def getDecimalPlaces(self):
+        return self.decimalSpinBox.value()
 
 
 class CalculatorWindow(QMainWindow):
@@ -459,7 +557,27 @@ class CalculatorWindow(QMainWindow):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+    def keyPressEvent(self, e):
+        events_dict = { "+": "+",
+                        "-": "-",
+                        "*": "×",
+                        "/": "÷"
+                       }
+        unary = ["!"]
+        numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
+        for i in events_dict:
+            if(e.text() == i):
+                i = events_dict[i]
+                self.ui.arithmeticButtonPress(i)
+        for i in numbers:
+            if(e.text() == i):
+                self.ui.pressButton(i)
+        for i in unary:
+            if(e.text() == i):
+                self.ui.getResultUnary(i)
+        if(e.text() == "=" or e.key() == QtCore.Qt.Key_Return):
+            self.ui.getResult()
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = CalculatorWindow()

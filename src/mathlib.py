@@ -144,7 +144,9 @@ def fact(n):
 @param b: The divisor
 @return: The remainder of dividing a by b
 """
-def modulo(a, b):
+def modulo(a, b):  
+    if b == 0:
+        raise ZeroDivisionError('Cannot divide by zero')
     return a % b
 
 """
