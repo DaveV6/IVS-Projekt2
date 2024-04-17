@@ -8,18 +8,16 @@
 *   Date:           26.03.2024
 *   Author:         Erik Polak (xpolake00)
 **************************************************************************************************'''
-"""
-@file mathlib.py
-@author Erik Polák (xpolake00)
-@brief Implementation of mathematical library
-"""
+##
+# @file mathlib.py
+# @author Erik Polák (xpolake00)
+# @brief Implementation of mathematical library
 
-"""
-@brief Function for checking whether number is decimal or not
-    
-@param n: number
-@return: True if number is decimal, otherwise False
-"""
+##
+# @brief Function for checking whether number is decimal or not    
+# 
+# @param n: number
+# @return: True if number is decimal, otherwise False
 def contains_decimals(n):
     # Convert the number to a string
     n_str = str(n)
@@ -30,56 +28,50 @@ def contains_decimals(n):
             return True
     return False
 
-"""
-@brief Function for sum of 2 numbers
-    
-@param a: The first number
-@param b: The second number
-@return: The sum of numbers
-"""
+##
+# @brief Function for sum of 2 numbers
+#    
+# @param a: The first number
+# @param b: The second number
+# @return: The sum of numbers
 def add(a, b):
     return a + b
-
-"""
-@brief Function for substraction of 2 numbers
-    
-@param a: The first number
-@param b: The second number
-@return: Second number substracted from the first number
-"""
+##
+# @brief Function for substraction of 2 numbers
+#    
+# @param a: The first number
+# @param b: The second number
+# @return: Second number substracted from the first number
 def sub(a, b):
     return a - b
 
-"""
-@brief Function for division of 2 numbers
-    
-@param a: The dividend
-@param b: The divisor
-@return: The result of dividing a by b
-"""
+##
+# @brief Function for division of 2 numbers
+#    
+# @param a: The dividend
+# @param b: The divisor
+# @return: The result of dividing a by b
 def div(a, b):
     if b == 0:
         raise ZeroDivisionError('Cannot divide by zero')
 
     return a / b
 
-"""
-@brief Function for multiplication of 2 numbers
-    
-@param a: The first number
-@param b: The second number
-@return: The multiplication of numbers
-"""
+##
+# @brief Function for multiplication of 2 numbers
+#    
+# @param a: The first number
+# @param b: The second number
+# @return: The multiplication of numbers
 def mul(a, b):
     return a * b
 
-"""
-@brief Function for computing the n-th root of a number
-    
-@param a: The base
-@param n: The root 
-@return: The n-th root of a
-"""
+##
+# @brief Function for computing the n-th root of a number
+#    
+# @param a: The base
+# @param n: The root 
+# @return: The n-th root of a
 def root(a, n):
     if(n == 0):
         raise ValueError('0 root is undefined')
@@ -98,13 +90,12 @@ def root(a, n):
     
     return a ** (1/n)
 
-"""
-@brief Function for raising a number to a power
-    
-@param a: The base.
-@param n: The exponent
-@return: The result of raising a to the power of n
-"""
+##
+# @brief Function for raising a number to a power
+#    
+# @param a: The base.
+# @param n: The exponent
+# @return: The result of raising a to the power of n
 def pow(a, n):
     # raise an error fo negative base and exponent is decimal
     if(a < 0 and contains_decimals(n) and n % 1 != 0):
@@ -116,12 +107,11 @@ def pow(a, n):
     
     return a ** n
 
-"""
-@brief Function for computing the factorial of a non-negative integer
-    
-@param n: The base
-@return: The factorial of n
-"""
+##
+# @brief Function for computing the factorial of a non-negative integer
+#    
+# @param n: The base
+# @return: The factorial of n
 def fact(n):
     if (n < 0):
         raise ValueError('Factorial of negative number is undefined')
@@ -139,22 +129,21 @@ def fact(n):
     return result
 
 
-"""
-@brief Function for computing the remainder of a divided by b
-    
-@param a: The dividend
-@param b: The divisor
-@return: The remainder of dividing a by b
-"""
+##
+# @brief Function for computing the remainder of a divided by b
+#    
+# @param a: The dividend
+# @param b: The divisor
+# return: The remainder of dividing a by b
 def modulo(a, b):
     return a % b
 
-"""
-@brief Function for computing the opposite value of a number
-
-@param a: The number
-@return: The opposite value of a
-
-"""
+##
+# @brief Function for computing the opposite value of a number
+#
+# @param a: The number
+#return: The opposite value of a
 def return_opposite(a):
     return -a
+
+'''***END OF FILE MATHLIB.PY***'''

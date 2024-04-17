@@ -9,11 +9,10 @@
 *   Date:           13.04.2024
 *   Author:         Jakub Havlík (xhavlij00)
 **************************************************************************************************'''
-"""
-@file profiling.py
-@author Jakub Havlík (xhavlij00)
-@brief Mathlib profiling - calculates standard deviation from given formula
-"""
+##
+# @file profiling.py
+# @author Jakub Havlík (xhavlij00)
+# @brief Mathlib profiling - calculates standard deviation from given formula
 
 
 import sys
@@ -24,9 +23,9 @@ sys.path.append('../')
 import mathlib
 
 
-"""
-@brief reads all lines from stdin and calculates the standard deviation
-"""
+##
+# @brief reads all lines from stdin and calculates the standard deviation
+
 def profiler_function():
     input = []
     for line in sys.stdin:
@@ -48,3 +47,5 @@ def profiler_function():
 # python3 profiling.py < input_10.txt > output_profiling.txt
 # python3 profiling.py < input_1000.txt >> output_profiling.txt (appends to the file)
 cProfile.run('profiler_function()', sort='time')
+
+'''***END OF FILE PROFILING.PY***'''
