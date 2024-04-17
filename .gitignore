@@ -1,4 +1,5 @@
 src/tests/__pycache__
 src/tests/.pytest_cache
 src/__pycache__
+src/doc
 profiling/zprava.pdf:Zone.Identifier
