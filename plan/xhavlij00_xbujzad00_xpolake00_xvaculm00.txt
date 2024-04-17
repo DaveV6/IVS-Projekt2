@@ -1,67 +1,65 @@
-Autoři:
+Authors:
 	Jakub Havlík (xhavlij00)
 	Martin Vaculík (xvaculm00)
 	David Bujzaš (xbujzad00)
 	Erik Polák (xpolake00)
 
 
-Udělené úkoly:
+Assigned tasks:
 	Jakub Havlík
-		- Testy
-		- Dokumentace
-		- Sestavení plánu
+		- Tests
+		- Documentation
+		- Realization of the plan
 	
 	Martin Vaculík
 		- GUI
-		- Průběžné code review
-		- Profiling
+		- Continuous code review
+		- Profilling
 
 	David Bujzaš
-		- Správa repozitáře
+		- Repository management
 		- Makefile
-		- Nápověda
+		- Help
 
 	Erik Polák
-		- Knihovna 
-		- Instalačka
-		- Návrh GUI
+		- Library
+		- Installator
+		- GUI design
 
 
-Stanovené termíny:
-	- 11.3. - Zkompletování plánu
-	- 20.3. - Testy pro matematickou knihovnu
-	- 31.3. - Implementace matematické knihovny
+Deadlines:
+	- 11.3. - Completion of the plan
+	- 20.3. - Tests for the mathematical library
+	- 31.3. - Implementation of mathematical library
 	- 7.4. - GUI
 	- 13.4. - Makefile
-	- 15.4. - Instalačka
-	- 17.4. - Mockup (všichni)
-	- 18.4. - Profiling
-	- 21.4. - Dokumentace
-	- 24.4. - odevzdání kompletního produktu
-	- 8.5. - odevzdání seznamu problémů
+	- 15.4. - Installator
+	- 17.4. - Mockup (everyone)
+	- 18.4. - Profilling
+	- 21.4. - Documentation
+	- 24.4. - Submission of the completed product
+	- 8.5. - Submission of list of problems
 
 
-Vytvářený produkt:
-	- Platforma - Unix (Ubuntu)
-	- Programovací jazyk - Python
+Created Procduct:
+	- Platform - Unix (Ubuntu)
+	- Programming language - Python
 	- GUI - PyQt
 
 
-Komunikace:
-	- Pro komunikaci ohledně práce na projektu byla zvolena služba Discord, kde jsme vytvořili samostatný server určený pouze pro tento projekt
-	- V rámci serveru je struktura rozdělena do kanálů pro zvýšení přehlednosti
-	- V případě technických problémů s discordem přechod na platformu Slack, v případě nouze messenger
-	- V případě úplného selhání techniky + komunikace v urgentních případech - telefonicky + osobní setkání
+Communication:
+	- For communication about work on the project we chose Discord, where we created separate server used only for this project
+	- Within the server, the structure is divided into channels for better clarity
+	- In case of technical difficulties with Discord, we transfer to platform Slack, in case of emergency messenger
+	- In case of complete technical failure + communication in urgent cases - phone + personal meetings
 
+Communication rules:
+	- Discord server is used ONLY for communication about project
+	- Use channels only for specified topics
+	- In case of technical failure, notify all members of the team
 
-Pravidla komunikace:
-	- Discord server používat POUZE pro komunikaci ohledně projektu
-	- Využívat kanály pouze na stanovené věci
-	- V případě selhání techniky kontaktovat a obeznámit všechny členy týmu
-
-
-Systém pro správu verzí:
-	- GitHub soukromý repozitář
-	- na GitHub byl také vytvořen Project pro přehlednost a správu průběhu vývoje
+Version control system:
+	- GitHub private repository
+	- On GitHub we created Project for better clarity and management of the development
 	- https://github.com/DaveV6/IVS-Projekt2
-	- Oprávnění pro hodnocení, kontrolu repozitáře byla udělena na email ivs.kontrola@gmail.com
+	- Permission to control, evaluate the repository was given to email ivs.kontrola@gmail.com
