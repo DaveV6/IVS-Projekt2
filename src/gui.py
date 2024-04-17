@@ -312,6 +312,11 @@ class Ui_MainWindow(object):
         
             if self.vysledekPole.text() == "0":
                 self.vysledekPole.setText(pressed)
+            elif pressed == ".":
+                if "." in self.vysledekPole.text():
+                    return
+                else:
+                    self.vysledekPole.setText(self.vysledekPole.text() + pressed)
             else:
                 self.vysledekPole.setText(self.vysledekPole.text() + pressed)
        
