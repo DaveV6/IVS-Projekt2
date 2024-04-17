@@ -1,7 +1,7 @@
 #**************************************************************************************************
 #*   Project: IVS project 2 (Calculator)
 #*
-#*   File:           makefile
+#*   File:           Makefile
 #*   Description:    This file contains makefile for the project
 #*
 #*   Last change:    14.04.2024
@@ -9,7 +9,7 @@
 #*   Author:         David Bujzaš (xbujzad00)
 #**************************************************************************************************'''
 
-# @file makefile
+# @file Makefile
 # @author David Bujzaš (xbujzad00)
 # @brief Implementation of makefile
 
@@ -31,7 +31,7 @@ run: gui.py
 test: tests/tests.py
 	cd tests/ && pytest tests.py
 
-pack: 
+pack: doc
 	rm -rf $(DIR)
 	mkdir -p $(DIR)/doc $(DIR)/installer $(DIR)/repo
 	cp -r .. $(DIR)/repo
@@ -48,4 +48,4 @@ profile: profiling/profiling.py
 	cd profiling && ./generate_input 1000000 && $(PY) profiling.py < input_1000000.txt 
 
 clean:
-	rm -rf __pycache__/ && rm -rf tests/__pycache__/ && rm -rf tests/.pytest_cache/ && rm -rf profiling/*.txt && rm -rf html/ && rm -rf latex/
+	rm -rf __pycache__/ && rm -rf tests/__pycache__/ && rm -rf tests/.pytest_cache/ && rm -rf profiling/*.txt && rm -rf doc/
