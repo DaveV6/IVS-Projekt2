@@ -22,7 +22,7 @@ import cProfile
 
 sys.path.append('../')
 import mathlib
-
+import pstats
 
 """
 @brief reads all lines from stdin and calculates the standard deviation
@@ -42,8 +42,11 @@ def profiler_function():
     
     print(deviation)
 
+
+#cProfile.run('profiler_function()', sort='tottime')
 # use with python3 profiling.py < input_$number.txt (gives us flat profile output)
 # e.g:
 # python3 profiling.py < input_10.txt > output_profiling.txt
 # python3 profiling.py < input_1000.txt >> output_profiling.txt (appends to the file)
-cProfile.run('profiler_function()', sort='time')
+
+profiler_function()
