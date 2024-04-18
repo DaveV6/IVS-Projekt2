@@ -168,4 +168,7 @@ def return_opposite(a):
 """
 def backspace(a):
     x = str(a)
-    return x[:-1]
+    if x[:-1] == "":
+        return 0
+    else:
+        return x[:-1]

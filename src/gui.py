@@ -246,7 +246,7 @@ class Ui_MainWindow(object):
         self.actionPurpleBlue.setObjectName("actionPurpleBlue")
         self.actionDarkGreen = QtWidgets.QAction(MainWindow, triggered = lambda: self.changeSkin("Dark Green"))
         self.actionDarkGreen.setObjectName("actionDarkGreen")
-        self.actionHelp = QtWidgets.QAction(MainWindow)
+        self.actionHelp = QtWidgets.QAction(MainWindow, triggered=self.openHelp)
         self.actionHelp.setObjectName("actionHelp")
 
 
@@ -298,7 +298,6 @@ class Ui_MainWindow(object):
         self.actionPurpleBlue.setText(_translate("MainWindow", "Purple Blue"))
         self.actionDarkGreen.setText(_translate("MainWindow", "Dark Green"))
         self.actionHelp.setText(_translate("MainWindow", "Help"))
-        
 
 
         self.changeSkin("Basic")
@@ -414,9 +413,13 @@ class Ui_MainWindow(object):
     
     def getResultUnary(self, pressed):
         
+        
+            
+        
         if pressed == "⌫":
-            res = ml.backspace(float(self.vysledekPole.text()))
+            res = ml.backspace(str(self.vysledekPole.text()))
             self.vysledekPole.setText(str(res))
+            print(res)
             return
         if self.isArgumentASet == False:
             self.argumentA = self.vysledekPole.text()
@@ -526,6 +529,9 @@ class Ui_MainWindow(object):
         dialog.exec_()
         decimal_places = dialog.getDecimalPlaces()
         self.floatnumCounter = "{:." + str(decimal_places) + "f}"
+    def openHelp(self):
+        dialog = HelpDialog()
+        dialog.exec_()
         
 
     
@@ -558,6 +564,72 @@ class SettingsDialog(QDialog):
         return self.decimalSpinBox.value()
 
 
+
+
+
+
+
+
+class HelpDialog(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Help")
+        self.initUI()
+
+    def initUI(self):
+        layout = QVBoxLayout()
+
+        self.label = QLabel()
+        self.label.setText("""
+        To use the calculator, you can use a keyboard for basic functions or press the available buttons with a mouse.
+        The calculator takes in one number at a time.
+
+        The following arithmetic operations are available:
+        - Addition
+        - Subtraction
+        - Multiplication
+        - Division
+        - Modulo
+        - Factorial
+        - Square root of a number
+        - Number to the power of x
+
+        Binary operations can be used like this:
+        - Enter the 1st number
+        - Select the binary operation
+        - Enter the 2nd number
+
+        Unary operations can be used like this:
+        - Enter a number
+        - Select the unary operation
+        """)
+        
+        self.label.setStyleSheet("border: 1px solid black; padding: 10px;")
+        layout.addWidget(self.label)
+
+        self.okButton = QPushButton("OK")
+        self.okButton.clicked.connect(self.accept)
+        layout.addWidget(self.okButton)
+
+        self.setLayout(layout)
+\
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class CalculatorWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -574,6 +646,7 @@ class CalculatorWindow(QMainWindow):
 
         if(e.key() == QtCore.Qt.Key_Backspace):
             self.ui.getResultUnary("⌫")
+            return
         for i in events_dict:
             if(e.text() == i):
                 i = events_dict[i]
