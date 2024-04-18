@@ -570,8 +570,10 @@ class CalculatorWindow(QMainWindow):
                         "/": "÷"
                        }
         unary = ["!"]
-        numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."]
 
+        if(e.key() == QtCore.Qt.Key_Backspace):
+            self.ui.getResultUnary("⌫")
         for i in events_dict:
             if(e.text() == i):
                 i = events_dict[i]
