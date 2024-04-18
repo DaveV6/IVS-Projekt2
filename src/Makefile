@@ -4,7 +4,7 @@
 #*   File:           Makefile
 #*   Description:    This file contains makefile for the project
 #*
-#*   Last change:    14.04.2024
+#*   Last change:    18.04.2024
 #*   Date:           14.04.2024
 #*   Author:         David Bujzaš (xbujzad00)
 #**************************************************************************************************'''
@@ -17,35 +17,41 @@ PIP = pip3
 PY = python3
 ARCHIVE = xhavlij00_xbujzad00_xpolake00_xvaculm00
 DIR = ../../$(ARCHIVE)
+VPATH := tests:profiling
 
 .PHONY: all setup run test pack doc profile clean
 
 all: setup
 
 setup:
-	$(PIP) install -r requirements.txt
+	@echo "Installing requirements..."
+	@$(PIP) install -r requirements.txt
 
 run: gui.py
-	$(PY) gui.py
+	@echo "Running application..."
+	@$(PY) gui.py
 
-test: tests/tests.py
-	cd tests/ && pytest tests.py
+test: tests.py
+	@echo "Running tests..."
+	@cd tests/ && pytest tests.py
 
 pack: doc
-	rm -rf $(DIR)
-	mkdir -p $(DIR)/doc $(DIR)/installer $(DIR)/repo
-	cp -r .. $(DIR)/repo
-	cp -r doc/* $(DIR)/doc
-	cp -r ../installer/* $(DIR)/installer
-	zip -r $(DIR).zip $(DIR)
+	@echo "Packing files..."
+	@rm -rf $(DIR)
+	@mkdir -p $(DIR)/doc $(DIR)/installer $(DIR)/repo
+	@cp -r .. $(DIR)/repo
+	@cp -r doc/* $(DIR)/doc
+	@cp -r ../installer/* $(DIR)/installer
+	@zip -r $(DIR).zip $(DIR)
 
 doc:
-	doxygen Doxyfile
+	@echo "Generating doxygen documentation..."
+	@doxygen Doxyfile
 
-profile: profiling/profiling.py
-	cd profiling && ./generate_input 10 && $(PY) profiling.py < input_10.txt
-	cd profiling && ./generate_input 1000 && $(PY) profiling.py < input_1000.txt
-	cd profiling && ./generate_input 1000000 && $(PY) profiling.py < input_1000000.txt 
+profile: profiling.py
+	@echo "Generating profiling results"
+	@cd profiling && $(PY) -m cProfile profiling.py < input_example.txt
 
 clean:
-	rm -rf __pycache__/ && rm -rf tests/__pycache__/ && rm -rf tests/.pytest_cache/ && rm -rf profiling/*.txt && rm -rf doc/
+	@echo "Cleaning up..."
+	@rm -rf __pycache__/ && rm -rf tests/__pycache__/ && rm -rf tests/.pytest_cache/ && rm -rf doc/
