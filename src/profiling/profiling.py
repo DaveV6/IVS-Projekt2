@@ -16,12 +16,10 @@
 
 
 import sys
-import cProfile
 #cProfile uses "deterministic profiling", as they call it - instrumented code is not needed when the program is interpreted already.
 
 sys.path.append('../')
 import mathlib
-import pstats
 
 ##
 # @brief reads all lines from stdin and calculates the standard deviation
