@@ -1,3 +1,25 @@
+'''**************************************************************************************************
+*   Project: IVS project 2 (Calculator)
+*
+*   File:           gui.py
+*   Description:    This file contains the implementation of our calculator GUI and also the backend
+*
+*   Last change:    23.04.2024
+*   Date:           23.04.2024
+*   Author:         Martin Vaculik (xvaculm00)
+**************************************************************************************************'''
+##
+# @file gui.py
+# @author Martin Vaculik (xvaculm00)
+# @brief Implementation of gui for calculator and connecting it with backend
+
+
+
+
+
+
+
+
 import sys
 import calc as c 
 import mathlib as ml
@@ -8,16 +30,22 @@ import buttons as b
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, QVBoxLayout, QWidget, QLabel, QSpinBox, QPushButton, QDialog
-
+##
+# @brief Class that sets up the UI of the calculator
 class Ui_MainWindow(object):
+    ##
+    # @brief Function that sets up the UI of the calculator
+    # @param self: self parameter
+    # @param MainWindow: The main window of the calculator
+    # @return None
     def setupUi(self, MainWindow):
-        
+        #Icon defined
         icon = QtGui.QIcon("/usr/share/pictures/kure112.png")
         MainWindow.setWindowIcon(icon)
 
 
 
-
+        #Variables
         self.operation_buffer = ""
         self.argumentA = 0.0
         self.argumentB = 0.0
@@ -25,6 +53,12 @@ class Ui_MainWindow(object):
         self.isArgumentBSet = False
         self.show_notification = ""
         self.floatnumCounter = "{:.6f}"
+
+
+
+
+
+        #QTDesigner windows, buttons, labels etc.
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(465, 718)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -196,6 +230,7 @@ class Ui_MainWindow(object):
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(6, -18, 451, 711))
         self.label.setText("")
+        #Base wallpaper set 
         self.label.setPixmap(QtGui.QPixmap("/usr/share/pictures/wallpaperbasic.jpg"))
         self.label.setScaledContents(True)
         self.label.setObjectName("label")
@@ -233,6 +268,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 465, 21))
+        #Bar setup, menu etc.
         self.menubar.setObjectName("menubar")
         self.menu = QtWidgets.QMenu(self.menubar)
         self.menu.setObjectName("menuSkins")
@@ -257,7 +293,7 @@ class Ui_MainWindow(object):
         self.actionHelp.setObjectName("actionHelp")
 
 
-
+        #Adding actions to menus
         self.menuSkins.addAction(self.actionBasic)
         self.menuSkins.addAction(self.actionDarkMode)
         self.menuSkins.addAction(self.actionPurpleBlue)
@@ -270,6 +306,11 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+    ##
+    # @brief Function that sets up buttons, labels etc.
+    # @param self: self parameter
+    # @param MainWindow: The main window of the calculator
+    # @return None
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "SwagAnimeDripCalculator 1.0"))
@@ -306,14 +347,15 @@ class Ui_MainWindow(object):
         self.actionDarkGreen.setText(_translate("MainWindow", "Dark Green"))
         self.actionHelp.setText(_translate("MainWindow", "Help"))
 
-
+        #Default Skin Set
         self.changeSkin("Basic")
-
-    def keyPressEvent(self, e):
-        print("event", e)
         
 
-    
+    ##
+    # @brief Function that reacts to button press and changes our variables and displayed variable
+    # @param self: self parameter
+    # @param pressed: The button that was pressed
+    # @return None 
     def pressButton(self, pressed):
         
             if self.vysledekPole.text() == "0":
@@ -326,29 +368,41 @@ class Ui_MainWindow(object):
             else:
                 self.vysledekPole.setText(self.vysledekPole.text() + pressed)
        
+    ##
+    # @brief Function that reacts to arithmetic button press, calculates result if necessary
+    # @param self: self parameter
+    # @param pressed: The button that was pressed
+    # @return None 
+                
 
+    #We have 3 variables used for operations, argumentA, argumentB and operation_buffer
     def arithmeticButtonPress(self, pressed):
-        if self.historieVysledku == "Cannot divide by zero":
-            self.historieVysledku.setText("")
-            self.vysledekPole.setText("0")
-        if self.operation_buffer != "":
-            self.show_notification("Can't have more than one operation selected at a time")
+        #Fixes History after error
+        errorMessages = ["Cannot divide by zero", "Invalid Power Input", "Invalid Factorial Input", "Cannot root negative number"] 
+        for i in errorMessages:
+            if self.historieVysledku == "i":
+                self.historieVysledku.setText("")
+                self.vysledekPole.setText("0")
+            
 
 
-        else:
-            self.operation_buffer = pressed
-            if self.isArgumentASet == False:
-                self.argumentA = self.vysledekPole.text()
-                self.isArgumentASet = True
-                self.vysledekPole.setText("0")
-                self.historieVysledku.setText(self.argumentA +  self.operation_buffer)
-            elif self.isArgumentBSet == False:
-                self.vysledekPole.setText("0")
-                self.historieVysledku.setText(str(self.argumentA) + self.operation_buffer)
+            else:
+                self.operation_buffer = pressed
+                if self.isArgumentASet == False:
+                    self.argumentA = self.vysledekPole.text()
+                    self.isArgumentASet = True
+                    self.vysledekPole.setText("0")
+                    self.historieVysledku.setText(self.argumentA +  self.operation_buffer)
+                elif self.isArgumentBSet == False:
+                    self.vysledekPole.setText("0")
+                    self.historieVysledku.setText(str(self.argumentA) + self.operation_buffer)
                 
             
     
-                
+    ##
+    # @brief Function that gets the result of the operation 
+    # @param self: self parameter
+    # @return None           
     def getResult(self):
         
 
@@ -417,14 +471,18 @@ class Ui_MainWindow(object):
             self.isArgumentBSet = False
             self.historieVysledku.setText(self.historieVysledku.text() + " = " + self.vysledekPole.text())
 
-    
+    ##
+    # @brief Function that calculates result of unary operations and changes variables accordingly
+    # @param self: self parameter
+    # @param pressed: The button that was pressed
+    # @return None
     def getResultUnary(self, pressed):
         
         
             
         
         if pressed == "⌫":
-            res = ml.backspace(str(self.vysledekPole.text()))
+            res = c.backspace(str(self.vysledekPole.text()))
             self.vysledekPole.setText(str(res))
             print(res)
             return
@@ -467,7 +525,11 @@ class Ui_MainWindow(object):
         self.isArgumentBSet = False
         
 
-        
+    ##
+    # @brief Function that resets buffers and displayed variables
+    # @param self: self parameter
+    # @return None
+    
     def resetBuffers(self):
         self.vysledekPole.setText("0")
         self.operation_buffer = ""
@@ -478,7 +540,10 @@ class Ui_MainWindow(object):
         self.historieVysledku.setText("")
         
 
-
+    ##
+    # @brief Function that resets buffers and displayed variables without changing history
+    # @param self: self parameter
+    # @return None
     def resetBuffersNoHistChange(self):
         self.vysledekPole.setText("0")
         self.operation_buffer = ""
@@ -486,7 +551,10 @@ class Ui_MainWindow(object):
         self.argumentB = 0.0
         self.isArgumentASet = False
         self.isArgumentBSet = False
-
+    ##
+    # @brief Function that shows notification
+    # @param self: self parameter
+    # @param skin: name of the skin/theme
     def changeSkin(self, skin):
         if skin == "Basic":
             self.label.setPixmap(QtGui.QPixmap("/usr/share/pictures/basicwallpaper.png"))
@@ -542,13 +610,17 @@ class Ui_MainWindow(object):
         
 
     
-       
+##
+# @brief Class that sets up the settings dialog     
 class SettingsDialog(QDialog):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Set Floating Point Precision")
         self.initUI()
-
+    ##
+    # @brief Function that sets up the UI of the settings dialog
+    # @param self: self parameter
+    # @return None
     def initUI(self):
         layout = QVBoxLayout()
 
@@ -566,7 +638,10 @@ class SettingsDialog(QDialog):
         layout.addWidget(self.okButton)
 
         self.setLayout(layout)
-
+    ##
+    # @brief Function that returns the number of decimal places
+    # @param self: self parameter
+    # @return int: number of decimal places
     def getDecimalPlaces(self):
         return self.decimalSpinBox.value()
 
@@ -576,13 +651,19 @@ class SettingsDialog(QDialog):
 
 
 
-
+##
+# @brief Class that sets up the help dialog
 class HelpDialog(QDialog):
+    ##
+    # @brief init and superinnit of the class
+    # @param self: self parameter
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Help")
         self.initUI()
-
+    ##
+    # @brief Function that sets up the UI of the help dialog
+    # @param self: self parameter
     def initUI(self):
         layout = QVBoxLayout()
 
@@ -636,12 +717,23 @@ class HelpDialog(QDialog):
 
 
 
-
+#This is the main function that runs the calculator
+##
+# @brief Main function that runs the calculator
 class CalculatorWindow(QMainWindow):
+    ##
+    # @brief init and superinnit of the class
+    # @param self: self parameter
+    # @return None
     def __init__(self):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
+    ##
+    # @brief Function that reacts to key press events
+    # @param self: self parameter
+    # @param e: the key that was pressed
     def keyPressEvent(self, e):
         events_dict = { "+": "+",
                         "-": "-",
@@ -667,6 +759,7 @@ class CalculatorWindow(QMainWindow):
         if(e.text() == "=" or e.key() == QtCore.Qt.Key_Return):
             self.ui.getResult()
 if __name__ == "__main__":
+    #Main function that runs the calculator
     app = QApplication(sys.argv)
     window = CalculatorWindow()
     window.show()

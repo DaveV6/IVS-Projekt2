@@ -1,21 +1,27 @@
+'''**************************************************************************************************
+*   Project: IVS project 2 (Calculator)
+*
+*   File:           calc.py
+*   Description:    This file contains function for calculator backend that is not connect with math
+*
+*   Last change:    23.04.2024
+*   Date:           23.04.2024
+*   Author:         Martin Vaculik (xvaculm00)
+**************************************************************************************************'''
+##
+# @file calc.py
+# @author Martin Vaculik (xvaculm00)
+# @brief Implementation of calculator backend that is not connect with math
 """
-Here we will have function that will edit the string(append, not append, get result etc.)
-In addCharFunction we will also call get result based on regex.
+@brief Function for returning string without last character
+
+@param a: The string
+@return: string without last character
+
 """
-
-
-
-
-import sys
-import gui
-import mathlib as ml 
-def addCharToResultArr(resultArr, a):
-    resultArr+=a
-    return resultArr
-
-def round_res(result, x):
-    return float(round(result, x))
-
-
-resultArr = "0"
-print("Sample Calculator Code")
+def backspace(a):
+    x = str(a)
+    if x[:-1] == "":
+        return 0
+    else:
+        return x[:-1]
