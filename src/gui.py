@@ -11,6 +11,13 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, QVBoxLayout, QWi
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        
+        icon = QtGui.QIcon("/usr/share/pictures/kure112.png")
+        MainWindow.setWindowIcon(icon)
+
+
+
+
         self.operation_buffer = ""
         self.argumentA = 0.0
         self.argumentB = 0.0
@@ -189,7 +196,7 @@ class Ui_MainWindow(object):
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(6, -18, 451, 711))
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("pictures/wallpaperbasic.jpg"))
+        self.label.setPixmap(QtGui.QPixmap("/usr/share/pictures/wallpaperbasic.jpg"))
         self.label.setScaledContents(True)
         self.label.setObjectName("label")
         self.label.raise_()
@@ -482,7 +489,7 @@ class Ui_MainWindow(object):
 
     def changeSkin(self, skin):
         if skin == "Basic":
-            self.label.setPixmap(QtGui.QPixmap("pictures/basicwallpaper.png"))
+            self.label.setPixmap(QtGui.QPixmap("/usr/share/pictures/basicwallpaper.png"))
             self.label.setScaledContents(True)
             self.vysledekPole.setStyleSheet("color: white")
             self.historieVysledku.setStyleSheet("color: white")
@@ -494,7 +501,7 @@ class Ui_MainWindow(object):
                      i.setStyleSheet(button_style)
 
         elif skin == "Dark Mode":
-            self.label.setPixmap(QtGui.QPixmap("pictures/blackwallpaper.jpeg"))
+            self.label.setPixmap(QtGui.QPixmap("/usr/share/pictures/blackwallpaper.jpeg"))
             self.label.setScaledContents(True)
             self.vysledekPole.setStyleSheet("color: white")
             self.historieVysledku.setStyleSheet("color: white")
@@ -505,7 +512,7 @@ class Ui_MainWindow(object):
                
 
         elif skin == "Purple Blue":
-            self.label.setPixmap(QtGui.QPixmap("pictures/wallpaperpurpleblue.PNG"))
+            self.label.setPixmap(QtGui.QPixmap("/usr/share/pictures/wallpaperpurpleblue.PNG"))
             self.label.setScaledContents(True)
             self.vysledekPole.setStyleSheet("color: white")
             self.historieVysledku.setStyleSheet("color: white")
@@ -516,7 +523,7 @@ class Ui_MainWindow(object):
 
 
         elif skin == "Dark Green":
-            self.label.setPixmap(QtGui.QPixmap("pictures/wallpaperdarkgreen.PNG"))
+            self.label.setPixmap(QtGui.QPixmap("/usr/share/pictures/wallpaperdarkgreen.PNG"))
             self.label.setScaledContents(True)
             self.vysledekPole.setStyleSheet("color: white")
             self.historieVysledku.setStyleSheet("color: white")
