@@ -146,16 +146,4 @@ def modulo(a, b):
 def return_opposite(a):
     return -a
 
-##
-# @brief Function for returning string without last character
-#
-# @param a: The string
-# @return: string without last character
-def backspace(a):
-    x = str(a)
-    if x[:-1] == "":
-        return 0
-    else:
-        return x[:-1]
-
 '''***END OF FILE MATHLIB.PY***'''
