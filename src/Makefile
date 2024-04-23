@@ -50,7 +50,7 @@ doc:
 
 profile: profiling.py
 	@echo "Generating profiling results"
-	@cd profiling && $(PY) -m cProfile profiling.py < input_example.txt
+	@cd profiling && $(PY) profiling.py < input_example.txt
 
 clean:
 	@echo "Cleaning up..."
