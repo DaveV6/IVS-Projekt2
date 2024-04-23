@@ -37,12 +37,12 @@ test: tests.py
 
 pack: doc
 	@echo "Packing files..."
-	@rm -rf $(DIR)
-	@mkdir -p $(DIR)/doc $(DIR)/installer $(DIR)/repo
-	@cp -r .. $(DIR)/repo
-	@cp -r doc/* $(DIR)/doc
-	@cp -r ../installer/* $(DIR)/installer
-	@zip -r $(DIR).zip $(DIR)
+	@cd ../.. && mkdir doc installer repo
+	@cp -r .. ../../repo
+	@cp -r doc/* ../../doc
+	@cp -r ../installer/* ../../installer
+	@cd ../../ && zip $(ARCHIVE).zip doc installer repo
+	@cd ../../ && rm -rf doc installer repo
 
 doc:
 	@echo "Generating doxygen documentation..."
