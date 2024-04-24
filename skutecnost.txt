@@ -1,1 +1,4 @@
-tento soubor bude obsahovat rozdil mezi planem projektu a skutecnosti
+Začátek projektu probíhal podle plánu, a první deadliny byly dodržováný. Během cca poloviny projektu nastali jak problémy časové, a velké posouvání deadline,
+tak i problémy komunikační mezi některými členy týmu. Tento problém svádím sám na sebe jako na kapitána týmu (xvaculm00), jelikož jsem nedostatečně komunikoval 
+se členy projektu během konečné fáze.
+
