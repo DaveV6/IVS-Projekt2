@@ -37,12 +37,12 @@ test: tests.py
 
 pack: doc
 	@echo "Packing files..."
-	@cd ../.. && mkdir doc installer repo
-	@cp -r .. ../../repo
-	@cp -r doc/* ../../doc
-	@cp -r ../installer/* ../../installer
-	@cd ../../ && zip $(ARCHIVE).zip doc installer repo
-	@cd ../../ && rm -rf doc installer repo
+	@cd ../.. && mkdir $(ARCHIVE) && cd $(ARCHIVE) && mkdir repo && mkdir doc && mkdir installer
+	@cp -r .. ../../$(ARCHIVE)/repo
+	@cp -r doc/* ../../$(ARCHIVE)/doc
+	@cp -r ../installer/* ../../$(ARCHIVE)/installer
+	@cd ../../ && zip -r $(ARCHIVE).zip $(ARCHIVE)
+	@cd ../../ && rm -rf $(ARCHIVE)
 
 doc:
 	@echo "Generating doxygen documentation..."
